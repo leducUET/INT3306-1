@@ -8,3 +8,5 @@ function authHeader() {
     return {};
   }
 }
+
+export default authHeader;
