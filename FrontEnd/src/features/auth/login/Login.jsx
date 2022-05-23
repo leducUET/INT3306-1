@@ -14,9 +14,9 @@ import { Navigate } from "react-router-dom";
 const Login = () => {
   const dispatch = useDispatch();
   const initialState = { username: "", password: "" };
-  useEffect(() => {
-    dispatch(clearMessage());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   // dispatch(clearMessage());
+  // }, [dispatch]);
 
   const [formData, setFormData] = useState(initialState);
   const { isLoggedIn } = useSelector(loginSelector);
@@ -27,9 +27,10 @@ const Login = () => {
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
-    const { username, password } = formData;
-    // @ts-ignore
-    dispatch(login({ username, password }));
+    console.log(formData);
+    // const { username, password } = formData;
+    // // @ts-ignore
+    // dispatch(login({ username, password }));
   };
 
   if (isLoggedIn) {
