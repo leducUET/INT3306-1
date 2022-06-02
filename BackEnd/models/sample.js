@@ -14,9 +14,11 @@ module.exports = (sequelize, DataTypes) => {
   Sample.init(
     {
       code: DataTypes.STRING,
+      name: DataTypes.STRING,
       agencies: DataTypes.STRING,
       result: DataTypes.STRING,
       sendingDate: DataTypes.DATE,
+      inspeactionId: DataTypes.STRING,
     },
     {
       sequelize,

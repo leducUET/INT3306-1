@@ -23,6 +23,12 @@ module.exports = {
       placeManagement: {
         type: Sequelize.STRING,
       },
+      gender: {
+        type: Sequelize.BOOLEAN,
+      },
+      roleId: {
+        type: Sequelize.STRING,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

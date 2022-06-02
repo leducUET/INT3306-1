@@ -11,6 +11,9 @@ module.exports = {
       code: {
         type: Sequelize.STRING,
       },
+      name: {
+        type: Sequelize.STRING,
+      },
       agencies: {
         type: Sequelize.STRING,
       },
@@ -19,6 +22,9 @@ module.exports = {
       },
       sendingDate: {
         type: Sequelize.DATE,
+      },
+      inspectionId: {
+        type: Sequelize.STRING,
       },
       createdAt: {
         allowNull: false,
