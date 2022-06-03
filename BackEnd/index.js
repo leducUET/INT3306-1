@@ -1,14 +1,26 @@
 const express = require("express");
 const connectDB = require("./config/connectDB");
-const initWebRoutes = require("./routes/web");
+const cors = require("cors");
+
+const authRouter = require("./routes/authRoute");
+const initRouter = require("./routes/initRoute");
 
 require("dotenv").config();
 
 const app = express();
 
+app.use(
+  cors({
+    origin: true,
+    optionsSuccessStatus: 200,
+  })
+);
+
 app.use(express.json());
 
-initWebRoutes(app);
+// Routing
+app.use("/init", initRouter);
+app.use("/api/auth", authRouter);
 
 connectDB();
 
