@@ -16,8 +16,7 @@ const ListTable = () => {
       img: "https://m.media-amazon.com/images/I/31JaiPXYI8L._AC_UY327_FMwebp_QL65_.jpg",
       address: "Le Loi, An Duong, Hai Phong",
       date: "1 March",
-      type: "Production Base",
-      method: "Online Payment",
+      type: "Cơ sở sản xuất",
       status: "Expired",
     },
     {
@@ -26,8 +25,7 @@ const ListTable = () => {
       img: "https://m.media-amazon.com/images/I/71kr3WAj1FL._AC_UY327_FMwebp_QL65_.jpg",
       address: "Le Loi, An Duong, Hai Phong",
       date: "1 March",
-      type: "Production Base",
-      method: "Cash on Delivery",
+      type: "Cơ sở sản xuất",
       status: "Expired",
     },
     {
@@ -36,9 +34,8 @@ const ListTable = () => {
       img: "https://m.media-amazon.com/images/I/71wF7YDIQkL._AC_UY327_FMwebp_QL65_.jpg",
       address: "Le Loi, An Duong, Hai Phong",
       date: "1 March",
-      type: "Operation Base",
-      method: "Online",
-      status: "Valid",
+      type: "Cơ sở kinh doanh",
+      status: "Expired",
     },
     {
       id: 2342355,
@@ -46,9 +43,8 @@ const ListTable = () => {
       img: "https://m.media-amazon.com/images/I/81hH5vK-MCL._AC_UY327_FMwebp_QL65_.jpg",
       address: "Le Loi, An Duong, Hai Phong",
       date: "1 March",
-      type: "Operation Base",
-      method: "Online",
-      status: "Expired",
+      type: "Cơ sở kinh doanh",
+      status: "Valid",
     },
   ];
   return (
@@ -56,12 +52,12 @@ const ListTable = () => {
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell className="tableCell">ID</TableCell>
-            <TableCell className="tableCell">Company</TableCell>
-            <TableCell className="tableCell">Address</TableCell>
-            <TableCell className="tableCell">Type</TableCell>
-            <TableCell className="tableCell">Date</TableCell>
-            <TableCell className="tableCell">Status</TableCell>
+            <TableCell className="tableCell">Mã số</TableCell>
+            <TableCell className="tableCell">Tên cơ sở kinh doanh</TableCell>
+            <TableCell className="tableCell">Địa chỉ</TableCell>
+            <TableCell className="tableCell">Kiểu</TableCell>
+            <TableCell className="tableCell">Ngày hết hạn</TableCell>
+            <TableCell className="tableCell">Trạng thái</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -81,7 +77,9 @@ const ListTable = () => {
               <TableCell className="tableCell">{row.type}</TableCell>
               <TableCell className="tableCell">{row.date}</TableCell>
               <TableCell className="tableCell">
-                <span className={`status ${row.status}`}>{row.status}</span>
+                <span className={`status ${row.status}`}>
+                  {row.status === "Expired" ? "Hết hạn" : "Còn hiệu lực"}
+                </span>
               </TableCell>
             </TableRow>
           ))}
