@@ -8,7 +8,7 @@ import PsychologyOutlinedIcon from "@mui/icons-material/PsychologyOutlined";
 import SettingsApplicationsIcon from "@mui/icons-material/SettingsApplications";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import ExitToAppOutlinedIcon from "@mui/icons-material/ExitToAppOutlined";
-import { Navigate } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logout } from "../../features/auth/slices/auth";
 import { Button } from "@mui/material";
@@ -16,30 +16,38 @@ import { Button } from "@mui/material";
 const Sidebar = () => {
   const dispatch = useDispatch();
   const handleLogout = () => {
-    dispatch(logout());
+    // dispatch(logout());
   };
   return (
     <div className="sidebar">
       <div className="top">
-        <span className="logo">Healthy-first</span>
+        <Link className="link" to="dashboard">
+          <span className="logo">Healthy-first</span>
+        </Link>
       </div>
       <hr />
       <div className="center">
         <ul>
           <p className="title">MAIN</p>
-          <li>
-            <DashboardIcon className="icon" />
-            <span>Dashboard</span>
-          </li>
-          <p className="title">LISTS</p>
-          <li>
-            <PersonOutlineIcon className="icon" />
-            <span>Users</span>
-          </li>
-          <li>
-            <StoreIcon className="icon" />
-            <span>Base</span>
-          </li>
+          <Link className="link" to="dashboard">
+            <li>
+              <DashboardIcon className="icon" />
+              <span>Dashboard</span>
+            </li>
+          </Link>
+          <p className="title">Lists</p>
+          <Link className="link" to="users">
+            <li>
+              <PersonOutlineIcon className="icon" />
+              <span>Users</span>
+            </li>
+          </Link>
+          <Link className="link" to="bases">
+            <li>
+              <StoreIcon className="icon" />
+              <span>Bases</span>
+            </li>
+          </Link>
 
           <p className="title">USEFUL</p>
           <li>
@@ -52,24 +60,26 @@ const Sidebar = () => {
           </li>
           <p className="title">SERVICES</p>
 
-          <li>
-            <PsychologyOutlinedIcon className="icon" />
-            <span>Logs</span>
-          </li>
+          <Link className="link" to="logs">
+            <li>
+              <PsychologyOutlinedIcon className="icon" />
+              <span>Logs</span>
+            </li>
+          </Link>
           <li>
             <SettingsApplicationsIcon className="icon" />
             <span>Settings</span>
           </li>
           <p className="title">USER</p>
-          <li>
-            <AccountCircleOutlinedIcon className="icon" />
-            <span>Profile</span>
-          </li>
-          <li>
-            <Button onClick={handleLogout}>
-              <ExitToAppOutlinedIcon className="icon" />
-              <span>Logout</span>
-            </Button>
+          <Link className="link" to="profile">
+            <li>
+              <AccountCircleOutlinedIcon className="icon" />
+              <span>Profile</span>
+            </li>
+          </Link>
+          <li onClick={handleLogout}>
+            <ExitToAppOutlinedIcon className="icon" />
+            <span>Logout</span>
           </li>
         </ul>
       </div>
