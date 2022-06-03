@@ -9,7 +9,7 @@ import { Navigate } from "react-router-dom";
 
 const Login = () => {
   const dispatch = useDispatch();
-  const initialState = { username: "", password: "" };
+  const initialState = { email: "", password: "" };
   // useEffect(() => {
   //   // dispatch(clearMessage());
   // }, [dispatch]);
@@ -24,9 +24,9 @@ const Login = () => {
   const handleOnSubmit = async (e) => {
     e.preventDefault();
     console.log(formData);
-    const { username, password } = formData;
+    const { email, password } = formData;
     // @ts-ignore
-    dispatch(login({ username, password }));
+    dispatch(login({ email, password }));
   };
 
   if (isLoggedIn) {
@@ -39,10 +39,10 @@ const Login = () => {
         <h1>Sign In</h1>
         <div className="loginContainer">
           <TextField
-            className="input username"
-            type="text"
-            name="username"
-            label="Username"
+            className="input email"
+            type="email"
+            name="email"
+            label="Email"
             onChange={handleOnChange}
             autoFocus
           />
