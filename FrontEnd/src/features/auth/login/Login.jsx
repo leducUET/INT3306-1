@@ -3,11 +3,7 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  loginSelector,
-  messageSelector,
-} from "../../../redux/selectors/selectors";
-import { clearMessage } from "../slices/message";
+import { loginSelector } from "../../../redux/selectors/selectors";
 import { login } from "../slices/auth";
 import { Navigate } from "react-router-dom";
 
@@ -25,12 +21,12 @@ const Login = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleOnSubmit = (e) => {
+  const handleOnSubmit = async (e) => {
     e.preventDefault();
     console.log(formData);
-    // const { username, password } = formData;
-    // // @ts-ignore
-    // dispatch(login({ username, password }));
+    const { username, password } = formData;
+    // @ts-ignore
+    dispatch(login({ username, password }));
   };
 
   if (isLoggedIn) {
