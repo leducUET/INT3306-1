@@ -5,7 +5,9 @@ const bcrypt = require("bcryptjs");
 let checkUser = (email) => {
   return new Promise(async (resolve, reject) => {
     try {
-      const user = await db.User.findOne({ where: { email } });
+      const user = await db.User.findOne({
+        where: { email },
+      });
       resolve(user);
     } catch (error) {
       reject(error);

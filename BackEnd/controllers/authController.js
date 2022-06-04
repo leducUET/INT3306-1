@@ -31,6 +31,9 @@ const loginUser = async (req, res) => {
         user: {
           email: data.user.email,
           roleId: data.user.roleId,
+          firstName: data.user.firstName,
+          lastName: data.user.lastName,
+          gender: data.user.gender,
           token: generateToken(data.user.id),
         },
       });
