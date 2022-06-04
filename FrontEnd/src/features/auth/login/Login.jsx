@@ -10,9 +10,6 @@ import { Navigate } from "react-router-dom";
 const Login = () => {
   const dispatch = useDispatch();
   const initialState = { email: "", password: "" };
-  // useEffect(() => {
-  //   // dispatch(clearMessage());
-  // }, [dispatch]);
 
   const [formData, setFormData] = useState(initialState);
   const { isLoggedIn } = useSelector(loginSelector);

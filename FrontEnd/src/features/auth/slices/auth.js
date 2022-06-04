@@ -32,8 +32,10 @@ const authSlice = createSlice({
   extraReducers: {
     // @ts-ignore
     [login.fulfilled]: (state, action) => {
-      state.isLoggedIn = true;
-      state.user = action.payload.user;
+      if (action.payload.user) {
+        state.isLoggedIn = true;
+        state.user = action.payload.user;
+      }
     },
     // @ts-ignore
     [login.rejected]: (state, action) => {
