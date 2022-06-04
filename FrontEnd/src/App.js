@@ -1,5 +1,6 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import Login from "./features/auth/login/Login";
+import AdminBoard from "./pages/AdminBoard/AdminBoard";
 import Bases from "./pages/Bases/Bases";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import Home from "./pages/home/Home";
@@ -12,8 +13,8 @@ function App() {
       <Route path="*">
         <Route path="login" element={<Login />} />
         <Route path="*" element={<Home />}>
-          <Route index element={<Navigate to="dashboard" />}></Route>
-          <Route path="dashboard" element={<Dashboard />} />
+          <Route index element={<Navigate to="admin" />} />
+          <Route path="admin" element={<AdminBoard />} />
           <Route path="users" element={<Users />} />
           <Route path="bases" element={<Bases />} />
           <Route path="profile" element={<Profile />} />

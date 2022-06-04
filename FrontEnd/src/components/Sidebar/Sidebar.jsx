@@ -11,17 +11,16 @@ import ExitToAppOutlinedIcon from "@mui/icons-material/ExitToAppOutlined";
 import { Link, Navigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logout } from "../../features/auth/slices/auth";
-import { Button } from "@mui/material";
 
 const Sidebar = () => {
   const dispatch = useDispatch();
   const handleLogout = () => {
-    // dispatch(logout());
+    dispatch(logout());
   };
   return (
     <div className="sidebar">
       <div className="top">
-        <Link className="link" to="dashboard">
+        <Link className="link" to="#">
           <span className="logo">Healthy-first</span>
         </Link>
       </div>
@@ -29,10 +28,10 @@ const Sidebar = () => {
       <div className="center">
         <ul>
           <p className="title">MAIN</p>
-          <Link className="link" to="dashboard">
+          <Link className="link" to="admin">
             <li>
               <DashboardIcon className="icon" />
-              <span>Dashboard</span>
+              <span>AdminBoard</span>
             </li>
           </Link>
           <p className="title">Lists</p>
