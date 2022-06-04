@@ -12,7 +12,7 @@ const Login = () => {
   const initialState = { email: "", password: "" };
 
   const [formData, setFormData] = useState(initialState);
-  const { isLoggedIn } = useSelector(loginSelector);
+  const { isLoggedIn, user } = useSelector(loginSelector);
 
   const handleOnChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -27,7 +27,10 @@ const Login = () => {
   };
 
   if (isLoggedIn) {
-    return <Navigate to="/" />;
+    if (user.role === "admin") {
+      return <Navigate to="/admin" />;
+    } else {
+    }
   }
 
   return (

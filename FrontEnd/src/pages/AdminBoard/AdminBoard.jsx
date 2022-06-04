@@ -7,6 +7,8 @@ import CancelIcon from "@mui/icons-material/Close";
 import LockIcon from "@mui/icons-material/Lock";
 import RestartAltIcon from "@mui/icons-material/RestartAlt";
 import LockOpenIcon from "@mui/icons-material/LockOpen";
+import { useSelector } from "react-redux";
+import { Navigate } from "react-router-dom";
 import { GridRowModes, GridActionsCellItem } from "@mui/x-data-grid-pro";
 import {
   randomTraderName,
@@ -15,6 +17,7 @@ import {
 } from "@mui/x-data-grid-generator";
 import { DataGrid } from "@mui/x-data-grid";
 import EditToolbar from "./EditToolbar";
+import { loginSelector } from "../../redux/selectors/selectors";
 
 const initialRows = [
   {
@@ -57,6 +60,15 @@ const initialRows = [
 export default function AdminBoard() {
   const [rows, setRows] = React.useState(initialRows);
   const [rowModesModel, setRowModesModel] = React.useState({});
+  // const { user } = useSelector(loginSelector);
+
+  // if (user) {
+  //   if (user.role !== "admin") {
+  //     return <Navigate to="/unAuthorized" />;
+  //   }
+  // } else {
+  //   return <Navigate to="/login" />;
+  // }
 
   const handleRowEditStart = (params, event) => {
     event.defaultMuiPrevented = true;
@@ -104,6 +116,7 @@ export default function AdminBoard() {
     {
       field: "email",
       headerName: "Email",
+      placeholder: "Email...",
       width: 180,
       editable: true,
     },
@@ -183,42 +196,45 @@ export default function AdminBoard() {
   ];
 
   return (
-    <Box
-      className="usersList"
-      sx={{
-        height: "90%",
-        width: "100%",
-        "& .actions": {
-          color: "#d74051",
-        },
-        "& .textPrimary": {
-          color: "#005aff",
-        },
-        "& .resetAction": {
-          color: "#76ff03",
-        },
-        "& .lockAction": {
-          color: "#ff5722",
-        },
-        padding: "20px",
-      }}
-    >
-      <DataGrid
-        rows={rows}
-        columns={columns}
-        editMode="row"
-        rowModesModel={rowModesModel}
-        onRowEditStart={handleRowEditStart}
-        onRowEditStop={handleRowEditStop}
-        processRowUpdate={processRowUpdate}
-        components={{
-          Toolbar: EditToolbar,
+    <div className="adminBoard">
+      <div className="adminTitle">ADMIN</div>
+      <Box
+        className="usersList"
+        sx={{
+          height: "1000px",
+          width: "100%",
+          "& .actions": {
+            color: "#d74051",
+          },
+          "& .textPrimary": {
+            color: "#005aff",
+          },
+          "& .resetAction": {
+            color: "#76ff03",
+          },
+          "& .lockAction": {
+            color: "#ff5722",
+          },
+          padding: "20px",
         }}
-        componentsProps={{
-          toolbar: { setRows, setRowModesModel },
-        }}
-        experimentalFeatures={{ newEditingApi: true }}
-      />
-    </Box>
+      >
+        <DataGrid
+          rows={rows}
+          columns={columns}
+          editMode="row"
+          rowModesModel={rowModesModel}
+          onRowEditStart={handleRowEditStart}
+          onRowEditStop={handleRowEditStop}
+          processRowUpdate={processRowUpdate}
+          components={{
+            Toolbar: EditToolbar,
+          }}
+          componentsProps={{
+            toolbar: { setRows, setRowModesModel },
+          }}
+          experimentalFeatures={{ newEditingApi: true }}
+        />
+      </Box>
+    </div>
   );
 }
