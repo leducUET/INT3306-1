@@ -49,14 +49,14 @@ const createModerator = async (req, res) => {
 // @route   PUT /api/admin/delete-moderator
 // @access  Private - admin
 const deleteModerator = async (req, res) => {
-  const { email } = req.body;
-  if (!email) {
+  const moderatorId = req.params._id;
+  if (!moderatorId) {
     res.status(500).json({
       success: false,
       message: "Missing parameter",
     });
   } else {
-    const data = await deleteModeratorAsync(email);
+    const data = await deleteModeratorAsync(moderatorId);
     if (data.success) {
       res.status(200).json({
         success: true,
