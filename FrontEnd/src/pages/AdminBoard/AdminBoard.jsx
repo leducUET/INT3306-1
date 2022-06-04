@@ -1,90 +1,60 @@
 import * as React from "react";
-import PropTypes from "prop-types";
 import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import AddIcon from "@mui/icons-material/Add";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/DeleteOutlined";
 import SaveIcon from "@mui/icons-material/Save";
 import CancelIcon from "@mui/icons-material/Close";
+import LockIcon from "@mui/icons-material/Lock";
+import RestartAltIcon from "@mui/icons-material/RestartAlt";
+import LockOpenIcon from "@mui/icons-material/LockOpen";
+import { GridRowModes, GridActionsCellItem } from "@mui/x-data-grid-pro";
 import {
-  GridRowModes,
-  GridToolbarContainer,
-  GridActionsCellItem,
-} from "@mui/x-data-grid-pro";
-import {
-  randomCreatedDate,
   randomTraderName,
-  randomUpdatedDate,
   randomId,
+  randomEmail,
 } from "@mui/x-data-grid-generator";
 import { DataGrid } from "@mui/x-data-grid";
+import EditToolbar from "./EditToolbar";
 
 const initialRows = [
   {
     id: randomId(),
-    name: randomTraderName(),
-    age: 25,
-    dateCreated: randomCreatedDate(),
-    lastLogin: randomUpdatedDate(),
+    email: randomEmail(),
+    firstName: randomTraderName(),
+    lastName: randomTraderName(),
+    gender: "Nam",
   },
   {
     id: randomId(),
-    name: randomTraderName(),
-    age: 36,
-    dateCreated: randomCreatedDate(),
-    lastLogin: randomUpdatedDate(),
+    email: randomEmail(),
+    firstName: randomTraderName(),
+    lastName: randomTraderName(),
+    gender: "Nam",
   },
   {
     id: randomId(),
-    name: randomTraderName(),
-    age: 19,
-    dateCreated: randomCreatedDate(),
-    lastLogin: randomUpdatedDate(),
+    email: randomEmail(),
+    firstName: randomTraderName(),
+    lastName: randomTraderName(),
+    gender: "Nam",
   },
   {
     id: randomId(),
-    name: randomTraderName(),
-    age: 28,
-    dateCreated: randomCreatedDate(),
-    lastLogin: randomUpdatedDate(),
+    email: randomEmail(),
+    firstName: randomTraderName(),
+    lastName: randomTraderName(),
+    gender: "Nam",
   },
   {
     id: randomId(),
-    name: randomTraderName(),
-    age: 23,
-    dateCreated: randomCreatedDate(),
-    lastLogin: randomUpdatedDate(),
+    email: randomEmail(),
+    firstName: randomTraderName(),
+    lastName: randomTraderName(),
+    gender: "Nam",
   },
 ];
 
-function EditToolbar(props) {
-  const { setRows, setRowModesModel } = props;
-
-  const handleClick = () => {
-    const id = randomId();
-    setRows((oldRows) => [...oldRows, { id, name: "", age: "", isNew: true }]);
-    setRowModesModel((oldModel) => ({
-      ...oldModel,
-      [id]: { mode: GridRowModes.Edit, fieldToFocus: "name" },
-    }));
-  };
-
-  return (
-    <GridToolbarContainer>
-      <Button color="primary" startIcon={<AddIcon />} onClick={handleClick}>
-        Add record
-      </Button>
-    </GridToolbarContainer>
-  );
-}
-
-EditToolbar.propTypes = {
-  setRowModesModel: PropTypes.func.isRequired,
-  setRows: PropTypes.func.isRequired,
-};
-
-export default function FullFeaturedCrudGrid() {
+export default function AdminBoard() {
   const [rows, setRows] = React.useState(initialRows);
   const [rowModesModel, setRowModesModel] = React.useState({});
 
@@ -108,6 +78,10 @@ export default function FullFeaturedCrudGrid() {
     setRows(rows.filter((row) => row.id !== id));
   };
 
+  const handleResetClick = (id) => () => {};
+
+  const handleLockClick = (id) => () => {};
+
   const handleCancelClick = (id) => () => {
     setRowModesModel({
       ...rowModesModel,
@@ -127,27 +101,32 @@ export default function FullFeaturedCrudGrid() {
   };
 
   const columns = [
-    { field: "name", headerName: "Name", width: 180, editable: true },
-    { field: "age", headerName: "Age", type: "number", editable: true },
     {
-      field: "dateCreated",
-      headerName: "Date Created",
-      type: "date",
+      field: "email",
+      headerName: "Email",
       width: 180,
       editable: true,
     },
     {
-      field: "lastLogin",
-      headerName: "Last Login",
-      type: "dateTime",
-      width: 220,
+      field: "firstName",
+      headerName: "First Name",
+      width: 180,
+      editable: true,
+    },
+    { field: "lastName", headerName: "Last Name", width: 180, editable: true },
+    {
+      field: "gender",
+      headerName: "Gender",
+      type: "singleSelect",
+      valueOptions: ["Nam", "Nữ"],
+      width: 100,
       editable: true,
     },
     {
       field: "actions",
       type: "actions",
       headerName: "Actions",
-      width: 100,
+      width: 180,
       cellClassName: "actions",
       getActions: ({ id }) => {
         const isInEditMode = rowModesModel[id]?.mode === GridRowModes.Edit;
@@ -184,6 +163,20 @@ export default function FullFeaturedCrudGrid() {
             onClick={handleDeleteClick(id)}
             color="inherit"
           />,
+          <GridActionsCellItem
+            icon={<LockIcon />}
+            label="Lock"
+            className="lockAction"
+            onClick={handleLockClick(id)}
+            color="inherit"
+          />,
+          <GridActionsCellItem
+            icon={<RestartAltIcon />}
+            className="resetAction"
+            label="Reset Password"
+            onClick={handleResetClick(id)}
+            color="inherit"
+          />,
         ];
       },
     },
@@ -196,10 +189,16 @@ export default function FullFeaturedCrudGrid() {
         height: "90%",
         width: "100%",
         "& .actions": {
-          color: "text.secondary",
+          color: "#d74051",
         },
         "& .textPrimary": {
-          color: "text.primary",
+          color: "#005aff",
+        },
+        "& .resetAction": {
+          color: "#76ff03",
+        },
+        "& .lockAction": {
+          color: "#ff5722",
         },
         padding: "20px",
       }}

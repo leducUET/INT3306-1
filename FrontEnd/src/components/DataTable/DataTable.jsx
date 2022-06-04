@@ -1,13 +1,26 @@
 import "./dataTable.scss";
-import { DataGrid } from "@mui/x-data-grid";
+import { DataGrid, GridAddIcon } from "@mui/x-data-grid";
 import PropTypes from "prop-types";
 import { useState } from "react";
-import { Box } from "@mui/material";
+import { Box, Button, Toolbar } from "@mui/material";
+import { randomId } from "@mui/x-data-grid-generator";
 
 const DataTable = (props) => {
   const { rows, columns } = props;
+  const handleClick = () => {
+    const id = randomId();
+  };
   return (
     <div className="dataTable">
+      <Toolbar className="toolbar">
+        <Button
+          color="primary"
+          startIcon={<GridAddIcon />}
+          onClick={handleClick}
+        >
+          Add record
+        </Button>
+      </Toolbar>
       <DataGrid
         rows={rows}
         columns={columns}
