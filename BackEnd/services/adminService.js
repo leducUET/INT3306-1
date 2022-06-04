@@ -117,12 +117,12 @@ const editModeratorAsync = (
   });
 };
 
-const deleteModeratorAsync = (email) => {
+const deleteModeratorAsync = (id) => {
   return new Promise(async (resolve, reject) => {
     try {
       const count = await db.User.destroy({
         where: {
-          email,
+          id,
         },
       });
       if (count) {

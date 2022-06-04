@@ -1,0 +1,45 @@
+POST http://localhost:8000/api/auth/login HTTP/1.1
+Content-Type: application/json
+
+{
+    "email": "admin@gmail.com",
+    "password": "12345"
+}
+
+###
+GET http://localhost:8000/api/auth/me HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjU0MjQyNzExLCJleHAiOjE2NTY4MzQ3MTF9.Ex0Kf88BoP6fFQAUYJdZ6DC4nTiUIepZk73kgq1P-yQ
+
+
+###
+GET http://localhost:8000/api/admin/get-moderators HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjU0MjQyNzExLCJleHAiOjE2NTY4MzQ3MTF9.Ex0Kf88BoP6fFQAUYJdZ6DC4nTiUIepZk73kgq1P-yQ
+
+###
+POST http://localhost:8000/api/admin/create-moderator HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjU0MjQyNzExLCJleHAiOjE2NTY4MzQ3MTF9.Ex0Kf88BoP6fFQAUYJdZ6DC4nTiUIepZk73kgq1P-yQ
+Content-Type: application/json
+
+{
+    "email": "moderator4@gmail.com",
+    "firstName": "Long", 
+    "lastName": "Trịnh Quang", 
+    "gender": "1"
+}
+
+###
+PUT http://localhost:8000/api/admin/edit-moderator HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjU0MjQyNzExLCJleHAiOjE2NTY4MzQ3MTF9.Ex0Kf88BoP6fFQAUYJdZ6DC4nTiUIepZk73kgq1P-yQ
+Content-Type: application/json
+
+{
+    "email": "moderator3@gmail.com",
+    "firstName": "Linh", 
+    "lastName": "Đỗ Văn", 
+    "gender": "1",
+    "editPassword": true
+}
+
+###
+DELETE http://localhost:8000/api/admin/delete-moderator/6 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjU0MjQyNzExLCJleHAiOjE2NTY4MzQ3MTF9.Ex0Kf88BoP6fFQAUYJdZ6DC4nTiUIepZk73kgq1P-yQ

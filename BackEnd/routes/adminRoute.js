@@ -11,6 +11,6 @@ const { verifyToken } = require("../middleware/authMiddleware");
 router.get("/get-moderators", verifyToken, getAllModerator);
 router.post("/create-moderator", verifyToken, createModerator);
 router.put("/edit-moderator", verifyToken, editModerator);
-router.post("/delete-moderator", verifyToken, deleteModerator);
+router.delete("/delete-moderator/:_id", verifyToken, deleteModerator);
 
 module.exports = router;
