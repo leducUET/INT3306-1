@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const authService = require("../services/authService");
+const { use } = require("../routes/authRoute");
 require("dotenv").config();
 
 // hepler funtion.
@@ -44,9 +45,24 @@ const loginUser = async (req, res) => {
 };
 
 // @desc    Get user data
-// @route   GET /api/users/me
+// @route   GET /api/auth/me
 // @access  Private
-const getMe = async (req, res) => {};
+const getMe = async (req, res) => {
+  const userId = req.userId;
+  const data = await authService.handleInfoUser(userId);
+  if (data.success) {
+    res.status(200).json({
+      success: data.success,
+      message: `Info user id ${userId}`,
+      user: data.user,
+    });
+  } else {
+    res.status(400).json({
+      success: false,
+      message: `Not found user id ${userId}`,
+    });
+  }
+};
 
 module.exports = {
   loginUser,

@@ -1,6 +1,5 @@
 const db = require("../models/index");
 const bcrypt = require("bcryptjs");
-const salt = bcrypt.genSaltSync(10);
 
 // helper function.
 let checkUser = (email) => {
@@ -43,4 +42,27 @@ const handleUserLogin = (email, password) => {
   });
 };
 
-module.exports = { handleUserLogin };
+const handleInfoUser = (userId) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const user = await db.User.findByPk(userId, {
+        attributes: { exclude: ["password"] },
+      });
+      if (user) {
+        // user aready exist.
+        resolve({
+          success: true,
+          user,
+        });
+      } else {
+        resolve({
+          success: false,
+        });
+      }
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
+module.exports = { handleUserLogin, handleInfoUser };

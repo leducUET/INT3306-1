@@ -10,21 +10,26 @@ module.exports = {
       },
       code: {
         type: Sequelize.STRING,
+        allowNull: false,
       },
       name: {
         type: Sequelize.STRING,
+        allowNull: false,
       },
       agencies: {
         type: Sequelize.STRING,
+        allowNull: false,
       },
       result: {
         type: Sequelize.STRING,
       },
       sendingDate: {
         type: Sequelize.DATE,
+        allowNull: false,
       },
       inspectionId: {
         type: Sequelize.STRING,
+        allowNull: false,
       },
       createdAt: {
         allowNull: false,

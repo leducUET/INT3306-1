@@ -3,8 +3,7 @@ const connectDB = require("./config/connectDB");
 const cors = require("cors");
 
 const authRouter = require("./routes/authRoute");
-const initRouter = require("./routes/initRoute");
-
+const adminRouter = require("./routes/adminRoute");
 require("dotenv").config();
 
 const app = express();
@@ -14,7 +13,7 @@ app.use(cors());
 app.use(express.json());
 
 // Routing
-app.use("/init", initRouter);
+app.use("/api/admin", adminRouter);
 app.use("/api/auth", authRouter);
 
 connectDB();

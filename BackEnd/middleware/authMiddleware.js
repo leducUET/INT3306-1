@@ -13,24 +13,23 @@ const verifyToken = async (req, res, next) => {
       // Verify token
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
+      console.log(decoded);
       // Get user from the token
-      req.userId = decoded.userId;
+      req.userId = decoded.id;
       next();
     } catch (error) {
       res.status(401).json({
         success: false,
         message: "Not authorized",
       });
-      throw new Error("Not authorized");
     }
   }
 
   if (!token) {
     res.status(401).json({
       success: false,
-      message: "Not authorized",
+      message: "Not authorized, no token",
     });
-    throw new Error("Not authorized, no token");
   }
 };
 
