@@ -131,7 +131,7 @@ export default function AdminBoard() {
       field: "gender",
       headerName: "Gender",
       type: "singleSelect",
-      valueOptions: ["Nam", "Nữ"],
+      valueOptions: [{ 1: "Nam" }, { 0: "Nữ" }],
       width: 100,
       editable: true,
     },
