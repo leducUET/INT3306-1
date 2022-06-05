@@ -12,18 +12,19 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxN
 
 
 ###
-GET http://localhost:8000/api/admin/get-moderators HTTP/1.1
+GET http://localhost:8000/api/users/get-users?role=moderator HTTP/1.1
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjU0MjQyNzExLCJleHAiOjE2NTY4MzQ3MTF9.Ex0Kf88BoP6fFQAUYJdZ6DC4nTiUIepZk73kgq1P-yQ
 
 ###
-POST http://localhost:8000/api/admin/create-moderator HTTP/1.1
+POST http://localhost:8000/api/users/create-user?role=moderato HTTP/1.1
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjU0MjQyNzExLCJleHAiOjE2NTY4MzQ3MTF9.Ex0Kf88BoP6fFQAUYJdZ6DC4nTiUIepZk73kgq1P-yQ
 Content-Type: application/json
 
 {
-    "email": "moderator4@gmail.com",
-    "firstName": "Long", 
-    "lastName": "Trịnh Quang", 
+    "email": "moderator9@gmail.com",
+    "firstName": "Linh", 
+    "lastName": "Đỗ Văn", 
+    "placeManagement": "All",
     "gender": "1"
 }
 
