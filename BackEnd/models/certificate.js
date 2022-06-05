@@ -17,7 +17,8 @@ module.exports = (sequelize, DataTypes) => {
       issueDate: DataTypes.STRING,
       expirationDate: DataTypes.STRING,
       revoked: DataTypes.BOOLEAN,
-      premisesId: DataTypes.STRING,
+      image: DataTypes.BLOB,
+      premisesId: DataTypes.INTEGER,
     },
     {
       sequelize,

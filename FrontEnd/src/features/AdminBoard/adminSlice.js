@@ -1,13 +1,16 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axiosClient from "../../api/axiosClient";
+import authHeader from "../auth/services/auth-header";
 
 export const getAllModeratorsAsync = createAsyncThunk(
   "admin/getAllModeratorsAsync",
   async () => {
-    const res = await axiosClient.get(`admin/get-moderators`);
+    const res = await axiosClient.get(
+      `users/get-users?role=moderator`,
+      authHeader()
+    );
     if (res.data.success) {
-      const moderators = res.data.moderators;
-      console.log(moderators);
+      const moderators = res.data.users;
       return { moderators };
     }
   }
@@ -43,18 +46,8 @@ export const adminSlice = createSlice({
   name: "admin",
   initialState: [],
   reducers: {
-    addModerator: (state, action) => {
-      const student = {
-        id: action.payload.id,
-        fullName: action.payload.fullName,
-        grade: action.payload.grade,
-        placeOfOrigin: action.payload.placeOfOrigin,
-      };
-      state.push(student);
-    },
-    deleteModerator: (state, action) => {
-      return state.filter((student) => student.id !== action.payload.id);
-    },
+    addModerator: (state, action) => {},
+    deleteModerator: (state, action) => {},
   },
   extraReducers: {
     [getAllModeratorsAsync.fulfilled]: (state, action) => {

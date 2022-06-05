@@ -1,8 +1,10 @@
 function authHeader() {
   const user = JSON.parse(localStorage.getItem("user"));
-  if (user && user.token) {
+  if (user) {
     return {
-      "x-access-token": user.token,
+      headers: {
+        Authorization: `Bearer ${user.user.token}`,
+      },
     };
   } else {
     return {};

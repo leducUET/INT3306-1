@@ -28,7 +28,7 @@ module.exports = {
         allowNull: false,
       },
       inspectionId: {
-        type: Sequelize.STRING,
+        type: Sequelize.INTEGER,
         allowNull: false,
       },
       createdAt: {

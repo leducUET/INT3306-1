@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
       agencies: DataTypes.STRING,
       result: DataTypes.STRING,
       sendingDate: DataTypes.DATE,
-      inspeactionId: DataTypes.STRING,
+      inspeactionId: DataTypes.INTEGER,
     },
     {
       sequelize,
