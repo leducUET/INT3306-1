@@ -3,7 +3,7 @@ const connectDB = require("./config/connectDB");
 const cors = require("cors");
 
 const authRouter = require("./routes/authRoute");
-const adminRouter = require("./routes/adminRoute");
+const crudUserRouter = require("./routes/crudUserRoute");
 require("dotenv").config();
 
 const app = express();
@@ -13,7 +13,7 @@ app.use(cors());
 app.use(express.json());
 
 // Routing
-app.use("/api/admin", adminRouter);
+app.use("/api/users", crudUserRouter);
 app.use("/api/auth", authRouter);
 
 connectDB();
