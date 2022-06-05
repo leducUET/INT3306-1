@@ -30,6 +30,7 @@ const Login = () => {
     if (user.role === "admin") {
       return <Navigate to="/admin" />;
     } else {
+      return <Navigate to="/" />;
     }
   }
 

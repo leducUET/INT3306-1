@@ -11,7 +11,7 @@ export default function EditToolbar(props) {
     const id = randomId();
     setRows((oldRows) => [
       ...oldRows,
-      { id, firstName: "", lastName: "", gender: "", isNew: true },
+      { id, email: "", firstName: "", lastName: "", gender: "", isNew: true },
     ]);
     setRowModesModel((oldModel) => ({
       ...oldModel,

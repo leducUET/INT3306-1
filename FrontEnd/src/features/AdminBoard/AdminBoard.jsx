@@ -11,6 +11,49 @@ import * as React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllModeratorsAsync } from "./adminSlice";
 import EditToolbar from "./EditToolbar";
+<<<<<<< HEAD:FrontEnd/src/features/AdminBoard/AdminBoard.jsx
+import { loginSelector } from "../../redux/selectors/selectors";
+import { TextField } from "@mui/material";
+
+const initialRows = [
+  {
+    id: randomId(),
+    email: randomEmail(),
+    firstName: randomTraderName(),
+    lastName: randomTraderName(),
+    gender: "Nam",
+  },
+  {
+    id: randomId(),
+    email: randomEmail(),
+    firstName: randomTraderName(),
+    lastName: randomTraderName(),
+    gender: "Nam",
+  },
+  {
+    id: randomId(),
+    email: randomEmail(),
+    firstName: randomTraderName(),
+    lastName: randomTraderName(),
+    gender: "Nam",
+  },
+  {
+    id: randomId(),
+    email: randomEmail(),
+    firstName: randomTraderName(),
+    lastName: randomTraderName(),
+    gender: "Nam",
+  },
+  {
+    id: randomId(),
+    email: randomEmail(),
+    firstName: randomTraderName(),
+    lastName: randomTraderName(),
+    gender: "Nam",
+  },
+];
+=======
+>>>>>>> 65a92abdc700977f9595aee33e6f8f6a58ae17db:FrontEnd/src/pages/AdminBoard/AdminBoard.jsx
 
 export default function AdminBoard() {
   const dispatch = useDispatch();
@@ -80,7 +123,7 @@ export default function AdminBoard() {
     {
       field: "email",
       headerName: "Email",
-      placeholder: "Email...",
+      label: "Email",
       width: 180,
       editable: true,
     },
