@@ -18,6 +18,7 @@ import {
 import { DataGrid } from "@mui/x-data-grid";
 import EditToolbar from "./EditToolbar";
 import { loginSelector } from "../../redux/selectors/selectors";
+import { TextField } from "@mui/material";
 
 const initialRows = [
   {
@@ -116,7 +117,7 @@ export default function AdminBoard() {
     {
       field: "email",
       headerName: "Email",
-      placeholder: "Email...",
+      label: "Email",
       width: 180,
       editable: true,
     },
