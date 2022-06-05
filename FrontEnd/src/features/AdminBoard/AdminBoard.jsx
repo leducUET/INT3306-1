@@ -18,52 +18,17 @@ import {
 import { DataGrid } from "@mui/x-data-grid";
 import EditToolbar from "./EditToolbar";
 
-const initialRows = [
-  {
-    id: randomId(),
-    email: randomEmail(),
-    firstName: randomTraderName(),
-    lastName: randomTraderName(),
-    gender: "Nam",
-  },
-  {
-    id: randomId(),
-    email: randomEmail(),
-    firstName: randomTraderName(),
-    lastName: randomTraderName(),
-    gender: "Nam",
-  },
-  {
-    id: randomId(),
-    email: randomEmail(),
-    firstName: randomTraderName(),
-    lastName: randomTraderName(),
-    gender: "Nam",
-  },
-  {
-    id: randomId(),
-    email: randomEmail(),
-    firstName: randomTraderName(),
-    lastName: randomTraderName(),
-    gender: "Nam",
-  },
-  {
-    id: randomId(),
-    email: randomEmail(),
-    firstName: randomTraderName(),
-    lastName: randomTraderName(),
-    gender: "Nam",
-  },
-];
-
 export default function AdminBoard() {
-  const [rows, setRows] = React.useState(initialRows);
+  const moderators = useSelector((state) => state.admin);
+
+  const [rows, setRows] = React.useState(moderators);
+
   const [rowModesModel, setRowModesModel] = React.useState({});
   const dispatch = useDispatch();
   // const { user } = useSelector(loginSelector);
 
   // if (user) {
-  //   if (user.role !== "admin") {
+  //   if (user.user.role !== "admin") {
   //     return <Navigate to="/unAuthorized" />;
   //   }
   // } else {
@@ -87,6 +52,7 @@ export default function AdminBoard() {
   };
 
   const handleDeleteClick = (id) => () => {
+    console.log(id);
     setRows(rows.filter((row) => row.id !== id));
   };
 

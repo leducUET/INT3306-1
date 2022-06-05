@@ -10,9 +10,15 @@ module.exports = {
       },
       province: {
         type: Sequelize.STRING,
+        allowNull: false,
       },
       district: {
         type: Sequelize.STRING,
+        allowNull: false,
+      },
+      premisesId: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
       },
       updatedAt: {
         allowNull: false,

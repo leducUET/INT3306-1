@@ -13,15 +13,18 @@ module.exports = {
       },
       startDate: {
         type: Sequelize.DATE,
+        allowNull: false,
       },
       endDate: {
         type: Sequelize.DATE,
+        allowNull: false,
       },
       sampled: {
         type: Sequelize.BOOLEAN,
       },
       premisesId: {
-        type: Sequelize.STRING,
+        type: Sequelize.INTEGER,
+        allowNull: false,
       },
       createdAt: {
         allowNull: false,

@@ -33,6 +33,10 @@ module.exports = {
         type: Sequelize.BOOLEAN,
         allowNull: false,
       },
+      avatar: {
+        type: Sequelize.BLOB,
+        allowNull: true,
+      },
       role: {
         type: Sequelize.STRING,
         allowNull: false,

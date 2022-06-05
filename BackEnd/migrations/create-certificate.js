@@ -10,18 +10,27 @@ module.exports = {
       },
       code: {
         type: Sequelize.STRING,
+        allowNull: false,
       },
       issueDate: {
+        allowNull: false,
         type: Sequelize.STRING,
       },
       expirationDate: {
         type: Sequelize.STRING,
+        allowNull: false,
       },
       revoked: {
         type: Sequelize.BOOLEAN,
+        allowNull: false,
+      },
+      image: {
+        type: Sequelize.BLOB,
+        allowNull: true,
       },
       premisesId: {
-        type: Sequelize.STRING,
+        type: Sequelize.INTEGER,
+        allowNull: false,
       },
       createdAt: {
         allowNull: false,

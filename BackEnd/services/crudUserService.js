@@ -13,21 +13,21 @@ let checkUser = (email) => {
   });
 };
 // help function.
-let checkPermission = (userAccessId, role) => {
-  const roles = ["staff", "moderator", "admin"];
-  return new Promise(async (resolve, reject) => {
-    try {
-      const userAccess = await db.User.findByPk(userAccessId);
-      const userAccessRole = userAccess.role;
-      if (roles.indexOf(userAccessRole) < roles.indexOf(role)) {
-        resolve(false);
-      }
-      resolve(true);
-    } catch (error) {
-      reject(error);
-    }
-  });
-};
+// let checkPermission = (userAccessId, role) => {
+//   const roles = ["staff", "moderator", "admin"];
+//   return new Promise(async (resolve, reject) => {
+//     try {
+//       const userAccess = await db.User.findByPk(userAccessId);
+//       const userAccessRole = userAccess.role;
+//       if (roles.indexOf(userAccessRole) < roles.indexOf(role)) {
+//         resolve(false);
+//       }
+//       resolve(true);
+//     } catch (error) {
+//       reject(error);
+//     }
+//   });
+// };
 
 const createUserAsync = (
   email,
@@ -45,19 +45,19 @@ const createUserAsync = (
           message: "Email already taken.",
         });
       } else {
-        let roles = ["staff", "moderator", "admin"];
-        if (!roles.includes(role)) {
-          resolve({
-            success: false,
-            message: `role: ${role} is invalid`,
-          });
-        }
-        if ((await checkPermission(req.userId, role)) == false) {
-          resolve({
-            success: false,
-            message: `permission denied`,
-          });
-        }
+        // let roles = ["staff", "moderator", "admin"];
+        // if (roles.includes(role) < 0) {
+        //   resolve({
+        //     success: false,
+        //     message: `role: ${role} is invalid`,
+        //   });
+        // }
+        // if ((await checkPermission(userAccessId, role)) == false) {
+        //   resolve({
+        //     success: false,
+        //     message: `permission denied`,
+        //   });
+        // }
         const defaultPassword = bcrypt.hashSync("healthyfirst", salt);
         const user = await db.User.create({
           email,
