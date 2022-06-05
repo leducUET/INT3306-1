@@ -1,11 +1,13 @@
 import "./login.scss";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loginSelector } from "../../../redux/selectors/selectors";
 import { login } from "../slices/auth";
 import { Navigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -20,6 +22,10 @@ const Login = () => {
 
   const handleOnSubmit = async (e) => {
     e.preventDefault();
+    toast.error("Đăng nhập không thành công!", {
+      position: toast.POSITION.TOP_RIGHT,
+      autoClose: 2000,
+    });
     console.log(formData);
     const { email, password } = formData;
     // @ts-ignore
@@ -32,6 +38,11 @@ const Login = () => {
     } else {
       return <Navigate to="/" />;
     }
+  } else {
+    toast.error("Đăng nhập không thành công!", {
+      position: toast.POSITION.TOP_RIGHT,
+      autoClose: 2000,
+    });
   }
 
   return (

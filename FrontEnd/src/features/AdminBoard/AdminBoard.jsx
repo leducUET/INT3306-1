@@ -1,28 +1,30 @@
-import CancelIcon from "@mui/icons-material/Close";
-import DeleteIcon from "@mui/icons-material/DeleteOutlined";
+import * as React from "react";
+import Box from "@mui/material/Box";
 import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/DeleteOutlined";
+import SaveIcon from "@mui/icons-material/Save";
+import CancelIcon from "@mui/icons-material/Close";
 import LockIcon from "@mui/icons-material/Lock";
 import RestartAltIcon from "@mui/icons-material/RestartAlt";
-import SaveIcon from "@mui/icons-material/Save";
-import Box from "@mui/material/Box";
-import { DataGrid } from "@mui/x-data-grid";
-import { GridActionsCellItem, GridRowModes } from "@mui/x-data-grid-pro";
-import * as React from "react";
+import LockOpenIcon from "@mui/icons-material/LockOpen";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllModeratorsAsync } from "./adminSlice";
+import { Navigate } from "react-router-dom";
+import { GridRowModes, GridActionsCellItem } from "@mui/x-data-grid-pro";
+import {
+  randomTraderName,
+  randomId,
+  randomEmail,
+} from "@mui/x-data-grid-generator";
+import { DataGrid } from "@mui/x-data-grid";
 import EditToolbar from "./EditToolbar";
 
 export default function AdminBoard() {
-  const dispatch = useDispatch();
-
-  React.useEffect(() => {
-    dispatch(getAllModeratorsAsync());
-  }, [dispatch]);
-
   const moderators = useSelector((state) => state.admin);
 
   const [rows, setRows] = React.useState(moderators);
+
   const [rowModesModel, setRowModesModel] = React.useState({});
+  const dispatch = useDispatch();
   // const { user } = useSelector(loginSelector);
 
   // if (user) {
