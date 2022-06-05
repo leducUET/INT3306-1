@@ -22,10 +22,6 @@ const Login = () => {
 
   const handleOnSubmit = async (e) => {
     e.preventDefault();
-    toast.error("Đăng nhập không thành công!", {
-      position: toast.POSITION.TOP_RIGHT,
-      autoClose: 2000,
-    });
     console.log(formData);
     const { email, password } = formData;
     // @ts-ignore
@@ -39,15 +35,20 @@ const Login = () => {
       return <Navigate to="/" />;
     }
   } else {
-    toast.error("Đăng nhập không thành công!", {
-      position: toast.POSITION.TOP_RIGHT,
-      autoClose: 2000,
+    toast.error("🦄 Wow so easy!", {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
     });
   }
 
   return (
     <div className="login">
-      <form action="" className="loginForm" onSubmit={handleOnSubmit}>
+      <form action="" className="loginForm">
         <h1>Sign In</h1>
         <div className="loginContainer">
           <TextField
@@ -70,6 +71,7 @@ const Login = () => {
             className="buttonSubmit"
             color="primary"
             variant="contained"
+            onClick={handleOnSubmit}
           >
             Sign in
           </Button>

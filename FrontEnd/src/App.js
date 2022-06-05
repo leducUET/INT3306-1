@@ -6,21 +6,36 @@ import Home from "./pages/home/Home";
 import Logs from "./pages/Logs/Logs";
 import Profile from "./pages/Profile/Profile";
 import Users from "./pages/Users/Users";
+import { ToastContainer } from "react-toastify";
 function App() {
   return (
-    <Routes>
-      <Route path="*">
-        <Route path="login" element={<Login />} />
-        <Route path="*" element={<Home />}>
-          <Route index element={<Navigate to="users" />} />
-          <Route path="admin" element={<AdminBoard />} />
-          <Route path="users" element={<Users />} />
-          <Route path="bases" element={<Bases />} />
-          <Route path="profile" element={<Profile />} />
-          <Route path="logs" element={<Logs />} />
+    <>
+      {/* <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={true}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
+      <ToastContainer /> */}
+      <Routes>
+        <Route path="*">
+          <Route path="login" element={<Login />} />
+          <Route path="*" element={<Home />}>
+            <Route index element={<Navigate to="users" />} />
+            <Route path="admin" element={<AdminBoard />} />
+            <Route path="users" element={<Users />} />
+            <Route path="bases" element={<Bases />} />
+            <Route path="profile" element={<Profile />} />
+            <Route path="logs" element={<Logs />} />
+          </Route>
         </Route>
-      </Route>
-    </Routes>
+      </Routes>
+    </>
   );
 }
 
