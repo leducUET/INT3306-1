@@ -12,8 +12,31 @@ let checkUser = (email) => {
     }
   });
 };
+// help function.
+let checkPermission = (userAccessId, role) => {
+  const roles = ["staff", "moderator", "admin"];
+  return new Promise(async (resolve, reject) => {
+    try {
+      const userAccess = await db.User.findByPk(userAccessId);
+      const userAccessRole = userAccess.role;
+      if (roles.indexOf(userAccessRole) < roles.indexOf(role)) {
+        resolve(false);
+      }
+      resolve(true);
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
 
-const createModeratorAsync = (email, firstName, lastName, gender) => {
+const createUserAsync = (
+  email,
+  firstName,
+  lastName,
+  placeManagement,
+  gender,
+  role
+) => {
   return new Promise(async (resolve, reject) => {
     try {
       if (await checkUser(email)) {
@@ -22,26 +45,39 @@ const createModeratorAsync = (email, firstName, lastName, gender) => {
           message: "Email already taken.",
         });
       } else {
+        let roles = ["staff", "moderator", "admin"];
+        if (!roles.includes(role)) {
+          resolve({
+            success: false,
+            message: `role: ${role} is invalid`,
+          });
+        }
+        if ((await checkPermission(req.userId, role)) == false) {
+          resolve({
+            success: false,
+            message: `permission denied`,
+          });
+        }
         const defaultPassword = bcrypt.hashSync("healthyfirst", salt);
-        const moderator = await db.User.create({
+        const user = await db.User.create({
           email,
           password: defaultPassword,
           firstName,
           lastName,
-          placeManagement: "All",
+          placeManagement,
           gender,
-          role: "moderator",
+          role,
         });
-        if (moderator) {
+        if (user) {
           resolve({
             success: true,
-            message: "Moderator created successfully.",
-            moderator,
+            message: `${role} created successfully.`,
+            user,
           });
         } else {
           resolve({
             success: false,
-            message: "Moderator created false.",
+            message: `${role} created fail.`,
           });
         }
       }
@@ -51,10 +87,11 @@ const createModeratorAsync = (email, firstName, lastName, gender) => {
   });
 };
 
-const editModeratorAsync = (
+const editUserAsync = (
   email,
   firstName,
   lastName,
+  placeManagement,
   gender,
   editPassword
 ) => {
@@ -67,6 +104,7 @@ const editModeratorAsync = (
             password: password,
             firstName,
             lastName,
+            placeManagement,
             gender,
           },
           {
@@ -91,6 +129,7 @@ const editModeratorAsync = (
           {
             firstName,
             lastName,
+            placeManagement,
             gender,
           },
           {
@@ -117,7 +156,7 @@ const editModeratorAsync = (
   });
 };
 
-const deleteModeratorAsync = (id) => {
+const deleteUserAsync = (id) => {
   return new Promise(async (resolve, reject) => {
     try {
       const count = await db.User.destroy({
@@ -128,12 +167,12 @@ const deleteModeratorAsync = (id) => {
       if (count) {
         resolve({
           success: true,
-          message: "Moderator deleted successfully.",
+          message: "User deleted successfully.",
         });
       } else {
         resolve({
           success: false,
-          message: "Moderator deleted false.",
+          message: "User deleted false.",
         });
       }
     } catch (error) {
@@ -142,16 +181,16 @@ const deleteModeratorAsync = (id) => {
   });
 };
 
-const getAllModeratorAsycn = () => {
+const getAllUsersAsycn = (role) => {
   return new Promise(async (resolve, reject) => {
     try {
-      const moderators = await db.User.findAll({
+      const users = await db.User.findAll({
         where: {
-          role: "moderator",
+          role,
         },
         attributes: { exclude: ["password"] },
       });
-      resolve(moderators);
+      resolve(users);
     } catch (error) {
       reject(error);
     }
@@ -159,8 +198,8 @@ const getAllModeratorAsycn = () => {
 };
 
 module.exports = {
-  getAllModeratorAsycn,
-  createModeratorAsync,
-  editModeratorAsync,
-  deleteModeratorAsync,
+  getAllUsersAsycn,
+  createUserAsync,
+  editUserAsync,
+  deleteUserAsync,
 };

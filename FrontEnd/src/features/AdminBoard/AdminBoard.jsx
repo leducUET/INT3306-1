@@ -1,22 +1,17 @@
-import * as React from "react";
-import Box from "@mui/material/Box";
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/DeleteOutlined";
-import SaveIcon from "@mui/icons-material/Save";
 import CancelIcon from "@mui/icons-material/Close";
+import DeleteIcon from "@mui/icons-material/DeleteOutlined";
+import EditIcon from "@mui/icons-material/Edit";
 import LockIcon from "@mui/icons-material/Lock";
 import RestartAltIcon from "@mui/icons-material/RestartAlt";
-import LockOpenIcon from "@mui/icons-material/LockOpen";
-import { useSelector } from "react-redux";
-import { Navigate } from "react-router-dom";
-import { GridRowModes, GridActionsCellItem } from "@mui/x-data-grid-pro";
-import {
-  randomTraderName,
-  randomId,
-  randomEmail,
-} from "@mui/x-data-grid-generator";
+import SaveIcon from "@mui/icons-material/Save";
+import Box from "@mui/material/Box";
 import { DataGrid } from "@mui/x-data-grid";
+import { GridActionsCellItem, GridRowModes } from "@mui/x-data-grid-pro";
+import * as React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllModeratorsAsync } from "./adminSlice";
 import EditToolbar from "./EditToolbar";
+<<<<<<< HEAD:FrontEnd/src/features/AdminBoard/AdminBoard.jsx
 import { loginSelector } from "../../redux/selectors/selectors";
 import { TextField } from "@mui/material";
 
@@ -57,8 +52,19 @@ const initialRows = [
     gender: "Nam",
   },
 ];
+=======
+>>>>>>> 65a92abdc700977f9595aee33e6f8f6a58ae17db:FrontEnd/src/pages/AdminBoard/AdminBoard.jsx
 
 export default function AdminBoard() {
+  const dispatch = useDispatch();
+
+  const moderators = useSelector((state) => state.admin);
+
+  React.useEffect(() => {
+    dispatch(getAllModeratorsAsync());
+  }, [dispatch]);
+
+  const initialRows = moderators;
   const [rows, setRows] = React.useState(initialRows);
   const [rowModesModel, setRowModesModel] = React.useState({});
   // const { user } = useSelector(loginSelector);
