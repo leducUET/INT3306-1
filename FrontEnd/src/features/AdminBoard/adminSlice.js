@@ -7,6 +7,7 @@ export const getAllModeratorsAsync = createAsyncThunk(
     const res = await axiosClient.get(`admin/get-moderators`);
     if (res.data.success) {
       const moderators = res.data.moderators;
+      console.log(moderators);
       return { moderators };
     }
   }
@@ -21,6 +22,7 @@ export const addModeratorAsync = createAsyncThunk(
       const moderator = res.data.moderator;
       return { moderator };
     } else {
+      // xử lý người dùng đã tồn tại.
       alert("Email đã tồn tại!");
       return;
     }
@@ -67,5 +69,5 @@ export const adminSlice = createSlice({
   },
 });
 
-export const { addStudent, deleteStudent } = studentSlice.actions;
-export default studentSlice.reducer;
+export const { addModerator } = adminSlice.actions;
+export default adminSlice.reducer;
