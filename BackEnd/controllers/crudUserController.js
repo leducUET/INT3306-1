@@ -32,6 +32,7 @@ const createUser = async (req, res) => {
     });
   } else {
     const data = await createUserAsync(
+      req.userId,
       email,
       firstName,
       lastName,
@@ -58,14 +59,15 @@ const createUser = async (req, res) => {
 // @route   PUT /api/admin/delete-moderator
 // @access  Private - admin
 const deleteUser = async (req, res) => {
-  const userId = req.params._id;
-  if (!userId) {
+  const userDelete = req.params._id;
+  const userId = req.userId;
+  if (!userDelete) {
     res.status(500).json({
       success: false,
       message: "Missing parameter",
     });
   } else {
-    const data = await deleteUserAsync(userId);
+    const data = await deleteUserAsync(userId, userDelete);
     if (data.success) {
       res.status(200).json({
         success: true,
@@ -84,20 +86,36 @@ const deleteUser = async (req, res) => {
 // @route   PUT /api/users/edit-user
 // @access  Private
 const editUser = async (req, res) => {
-  const { email, firstName, lastName, placeManagement, gender, editPassword } =
-    req.body;
-  if (!email || !firstName || !lastName || !placeManagement || !gender) {
+  const {
+    email,
+    firstName,
+    lastName,
+    placeManagement,
+    gender,
+    role,
+    editPassword,
+  } = req.body;
+  if (
+    !email ||
+    !firstName ||
+    !lastName ||
+    !placeManagement ||
+    !gender ||
+    !role
+  ) {
     res.status(500).json({
       success: false,
       message: "Missing parameter",
     });
   } else {
     const data = await editUserAsync(
+      req.userId,
       email,
       firstName,
       lastName,
       placeManagement,
       gender,
+      role,
       editPassword
     );
     if (data.success) {

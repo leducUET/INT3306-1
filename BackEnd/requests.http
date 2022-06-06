@@ -8,20 +8,20 @@ Content-Type: application/json
 
 ###
 GET http://localhost:8000/api/auth/me HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjU0MjQyNzExLCJleHAiOjE2NTY4MzQ3MTF9.Ex0Kf88BoP6fFQAUYJdZ6DC4nTiUIepZk73kgq1P-yQ
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjU0NDE4MjE5LCJleHAiOjE2NTcwMTAyMTl9.zbay5H0dJECuoRVcxi-Mo5EdxmyCpNQpWGUZai3tbX0
 
 
 ###
 GET http://localhost:8000/api/users/get-users?role=moderator HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjU0MjQyNzExLCJleHAiOjE2NTY4MzQ3MTF9.Ex0Kf88BoP6fFQAUYJdZ6DC4nTiUIepZk73kgq1P-yQ
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjU0NDE4MjE5LCJleHAiOjE2NTcwMTAyMTl9.zbay5H0dJECuoRVcxi-Mo5EdxmyCpNQpWGUZai3tbX0
 
 ###
-POST http://localhost:8000/api/users/create-user?role=moderato HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjU0MjQyNzExLCJleHAiOjE2NTY4MzQ3MTF9.Ex0Kf88BoP6fFQAUYJdZ6DC4nTiUIepZk73kgq1P-yQ
+POST http://localhost:8000/api/users/create-user?role=admin HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjU0NDE4MjE5LCJleHAiOjE2NTcwMTAyMTl9.zbay5H0dJECuoRVcxi-Mo5EdxmyCpNQpWGUZai3tbX0
 Content-Type: application/json
 
 {
-    "email": "moderator9@gmail.com",
+    "email": "admin2@gmail.com",
     "firstName": "Linh", 
     "lastName": "Đỗ Văn", 
     "placeManagement": "All",
@@ -29,8 +29,8 @@ Content-Type: application/json
 }
 
 ###
-PUT http://localhost:8000/api/admin/edit-moderator HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjU0MjQyNzExLCJleHAiOjE2NTY4MzQ3MTF9.Ex0Kf88BoP6fFQAUYJdZ6DC4nTiUIepZk73kgq1P-yQ
+PUT http://localhost:8000/api/users/edit-user HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjU0NDE4MjE5LCJleHAiOjE2NTcwMTAyMTl9.zbay5H0dJECuoRVcxi-Mo5EdxmyCpNQpWGUZai3tbX0
 Content-Type: application/json
 
 {
@@ -38,9 +38,30 @@ Content-Type: application/json
     "firstName": "Linh", 
     "lastName": "Đỗ Văn", 
     "gender": "1",
+    "placeManagement": "All",
+    "role": "moderator",
     "editPassword": true
 }
 
 ###
-DELETE http://localhost:8000/api/admin/delete-moderator/6 HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjU0MjQyNzExLCJleHAiOjE2NTY4MzQ3MTF9.Ex0Kf88BoP6fFQAUYJdZ6DC4nTiUIepZk73kgq1P-yQ
+DELETE http://localhost:8000/api/users/delete-user/6 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjU0NDE4MjE5LCJleHAiOjE2NTcwMTAyMTl9.zbay5H0dJECuoRVcxi-Mo5EdxmyCpNQpWGUZai3tbX0
+
+
+###
+
+GET http://localhost:8000/api/premises/get-premises?district=All
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjU0NDE4MjE5LCJleHAiOjE2NTcwMTAyMTl9.zbay5H0dJECuoRVcxi-Mo5EdxmyCpNQpWGUZai3tbX0
+
+###
+POST http://localhost:8000/api/premises/create-premises HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjU0NDE4MjE5LCJleHAiOjE2NTcwMTAyMTl9.zbay5H0dJECuoRVcxi-Mo5EdxmyCpNQpWGUZai3tbX0
+Content-Type: application/json
+
+{
+    "name":  "Nhà hàng quốc tế",
+    "phoneNumber": "0361234567",
+    "type": "production", 
+    "wards": "Lê Trường",
+    "district": "Quan Hóa"
+}

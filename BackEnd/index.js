@@ -4,6 +4,8 @@ const cors = require("cors");
 
 const authRouter = require("./routes/authRoute");
 const crudUserRouter = require("./routes/crudUserRoute");
+const premisesRouter = require("./routes/premisesRoute");
+const certificateRouter = require("./routes/certificateRoute");
 require("dotenv").config();
 
 const app = express();
@@ -15,6 +17,8 @@ app.use(express.json());
 // Routing
 app.use("/api/users", crudUserRouter);
 app.use("/api/auth", authRouter);
+app.use("/api/premises", premisesRouter);
+app.use("/api/certificate", certificateRouter);
 
 connectDB();
 

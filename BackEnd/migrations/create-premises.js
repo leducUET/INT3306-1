@@ -11,6 +11,7 @@ module.exports = {
       name: {
         type: Sequelize.STRING,
         allowNull: false,
+        unique: true,
       },
       phoneNumber: {
         type: Sequelize.STRING,
@@ -18,10 +19,6 @@ module.exports = {
       },
       type: {
         type: Sequelize.STRING,
-        allowNull: false,
-      },
-      addressId: {
-        type: Sequelize.INTEGER,
         allowNull: false,
       },
       createdAt: {

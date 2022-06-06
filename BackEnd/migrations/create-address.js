@@ -8,7 +8,7 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      province: {
+      wards: {
         type: Sequelize.STRING,
         allowNull: false,
       },
@@ -19,6 +19,10 @@ module.exports = {
       premisesId: {
         type: Sequelize.INTEGER,
         allowNull: false,
+      },
+      createdAt: {
+        allowNull: false,
+        type: Sequelize.DATE,
       },
       updatedAt: {
         allowNull: false,

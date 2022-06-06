@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      Sample.belongsTo(models.Inspection, { foreignKey: "inspectionId" });
     }
   }
   Sample.init(
@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
       agencies: DataTypes.STRING,
       result: DataTypes.STRING,
       sendingDate: DataTypes.DATE,
-      inspeactionId: DataTypes.INTEGER,
+      inspectionId: DataTypes.INTEGER,
     },
     {
       sequelize,

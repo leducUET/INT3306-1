@@ -19,7 +19,7 @@ let checkPermission = (userAccessId, role) => {
     try {
       const userAccess = await db.User.findByPk(userAccessId);
       const userAccessRole = userAccess.role;
-      if (roles.indexOf(userAccessRole) < roles.indexOf(role)) {
+      if (roles.indexOf(userAccessRole) <= roles.indexOf(role)) {
         resolve(false);
       }
       resolve(true);
@@ -30,6 +30,7 @@ let checkPermission = (userAccessId, role) => {
 };
 
 const createUserAsync = (
+  userAccessId,
   email,
   firstName,
   lastName,
@@ -46,18 +47,19 @@ const createUserAsync = (
           message: "Role invalid",
         });
       }
+
+      if ((await checkPermission(userAccessId, role)) == false) {
+        resolve({
+          success: false,
+          message: `permission denied`,
+        });
+      }
       if (await checkUser(email)) {
         resolve({
           success: false,
           message: "Email already taken.",
         });
       } else {
-        // if ((await checkPermission(userAccessId, role)) == false) {
-        //   resolve({
-        //     success: false,
-        //     message: `permission denied`,
-        //   });
-        // }
         const defaultPassword = bcrypt.hashSync("healthyfirst", salt);
         const user = await db.User.create({
           email,
@@ -88,15 +90,23 @@ const createUserAsync = (
 };
 
 const editUserAsync = (
+  userAccessId,
   email,
   firstName,
   lastName,
   placeManagement,
   gender,
+  role,
   editPassword
 ) => {
   return new Promise(async (resolve, reject) => {
     try {
+      if ((await checkPermission(userAccessId, role)) == false) {
+        resolve({
+          success: false,
+          message: `permission denied`,
+        });
+      }
       if (editPassword) {
         const password = bcrypt.hashSync("healthyfirst", salt);
         const count = await db.User.update(
@@ -156,9 +166,17 @@ const editUserAsync = (
   });
 };
 
-const deleteUserAsync = (id) => {
+const deleteUserAsync = (userAccessId, id) => {
   return new Promise(async (resolve, reject) => {
     try {
+      const userDelete = await db.User.findByPk(id);
+      const role = userDelete.role;
+      if ((await checkPermission(userAccessId, role)) == false) {
+        resolve({
+          success: false,
+          message: `permission denied`,
+        });
+      }
       const count = await db.User.destroy({
         where: {
           id,
