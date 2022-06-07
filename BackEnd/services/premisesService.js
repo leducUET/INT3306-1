@@ -116,7 +116,71 @@ const createPremieseAsync = (name, phoneNumber, type, wards, district) => {
   });
 };
 
-const editPremisesAsync = (name, phoneNumber, type, wards, district) => {};
+const editPremisesAsync = (name, phoneNumber, type, wards, district) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let types = ["Sản xuất thực phẩm", "Dịch vụ ăn uống"];
+      if (!types.includes(type)) {
+        resolve({
+          success: false,
+          message: "Type invalid",
+        });
+      } else {
+        const count = await db.Premises.update(
+          {
+            phoneNumber,
+            type,
+          },
+          {
+            where: {
+              name,
+            },
+          }
+        );
+        if (count) {
+          const premises = await db.Premises.findOne({
+            where: {
+              name,
+            },
+          });
+          const premisesId = premises.id;
+          const count = await db.Address.update(
+            {
+              wards,
+              district,
+            },
+            {
+              where: {
+                premisesId,
+              },
+            }
+          );
+          if (count) {
+            resolve({
+              success: true,
+              message: `Premises edited successfully.`,
+              premises: {
+                id: premises.id,
+                name: premises.name,
+                phoneNumber: premises.phoneNumber,
+                type: premises.type,
+                district: district,
+                wards: wards,
+              },
+            });
+          }
+        } else {
+          resolve({
+            success: false,
+            message: `Premises edited fail.`,
+          });
+        }
+      }
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
 
 const deletePremisesAsync = (id) => {
   return new Promise(async (resolve, reject) => {

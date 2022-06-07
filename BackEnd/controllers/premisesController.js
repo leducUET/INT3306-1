@@ -69,6 +69,7 @@ const editPremises = async (req, res) => {
       res.status(200).json({
         success: true,
         message: data.message,
+        premises: data.premises,
       });
     } else {
       res.status(400).json({
