@@ -122,6 +122,7 @@ const editUser = async (req, res) => {
       res.status(200).json({
         success: true,
         message: data.message,
+        user: data.user,
       });
     } else {
       res.status(400).json({

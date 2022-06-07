@@ -123,10 +123,16 @@ const editUserAsync = (
             },
           }
         );
+        const userEdited = await db.User.findOne({
+          where: {
+            email,
+          },
+        });
         if (count) {
           resolve({
             success: true,
             message: "Moderator edited successfully.",
+            user: userEdited,
           });
         } else {
           resolve({
