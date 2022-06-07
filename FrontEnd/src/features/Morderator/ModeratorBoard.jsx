@@ -1,29 +1,29 @@
-import { Button } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
+import { Button } from "@mui/material";
 import Box from "@mui/material/Box";
 import { DataGrid } from "@mui/x-data-grid";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import "./adminBoard.scss";
-import { deleteModeratorAsync, getAllModeratorsAsync } from "./adminSlice";
-import AdminModal from "./components/AdminModal";
+import ModeratorModal from "./components/ModeratorModal";
+import "./moderatorBoard.scss";
+import { getAllStaffsAsync } from "./moderatorSlice";
 
-export default function AdminBoard() {
+export default function ModeratorBoard() {
   const dispatch = useDispatch();
   const initialFormInput = {
     email: "",
     firstName: "",
     lastName: "",
     gender: "",
-    placeManagement: "All",
-    role: "moderator",
+    placeManagement: "",
+    role: "staff",
   };
 
   useEffect(() => {
-    dispatch(getAllModeratorsAsync());
+    dispatch(getAllStaffsAsync());
   }, []);
 
-  const moderators = useSelector((state) => state.admin);
+  const staffs = useSelector((state) => state.moderator);
   const [openModal, setOpenModal] = useState(false);
   const [currentUserEdit, setCurrentUserEdit] = useState(initialFormInput);
   const [mode, setMode] = useState("");
@@ -37,24 +37,25 @@ export default function AdminBoard() {
     },
     {
       field: "firstName",
-      headerName: "Họ",
-      width: 140,
-    },
-    {
-      field: "lastName",
       headerName: "Tên",
       width: 140,
     },
+    { field: "lastName", headerName: "Họ", width: 140 },
     {
       field: "gender",
       headerName: "Giới tính",
       type: "singleSelect",
       valueOptions: ["Nam", "Nữ"],
-      width: 100,
+      width: 80,
+    },
+    {
+      field: "placeManagement",
+      headerName: "Vùng Quản lý",
+      width: 150,
     },
     {
       field: "actions",
-      headerName: "Hành động",
+      headerName: "Xử lý",
       width: 350,
       cellClassName: "actions",
       renderCell: (e) => (
@@ -95,9 +96,7 @@ export default function AdminBoard() {
     setCurrentUserEdit(e.row);
     setMode("edit");
   };
-  const handleDeleteClick = (e) => {
-    dispatch(deleteModeratorAsync(e.row.id));
-  };
+  const handleDeleteClick = (e) => {};
   const handleLockClick = (e) => {
     console.log(e.row.id);
   };
@@ -106,12 +105,12 @@ export default function AdminBoard() {
   };
 
   return (
-    <div className="adminBoard">
+    <div className="staffBoard">
       {/* <div className="adminTitle">ADMIN</div> */}
       <Box
         className="usersList"
         sx={{
-          height: "800px",
+          height: "80vh",
           "& .actions": {
             color: "#d74051",
           },
@@ -127,7 +126,7 @@ export default function AdminBoard() {
           padding: "20px",
         }}
       >
-        <AdminModal
+        <ModeratorModal
           open={openModal}
           setOpen={setOpenModal}
           dataInput={currentUserEdit}
@@ -141,10 +140,10 @@ export default function AdminBoard() {
           startIcon={<AddIcon />}
           onClick={handleOnCreate}
         >
-          Thêm người điều hành
+          Tạo mới
         </Button>
         <DataGrid
-          rows={moderators}
+          rows={staffs}
           columns={columns}
           rowsPerPageOptions={[5, 10, 25, 50, 100, 250, 500]}
         />
