@@ -81,7 +81,7 @@ const editPremises = async (req, res) => {
 };
 
 const deletePremises = async (req, res) => {
-  const premisesId = req.params._id;
+  const premisesId = req.query.id;
   if (!premisesId) {
     res.status(500).json({
       success: false,

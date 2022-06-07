@@ -29,6 +29,7 @@ const getAllPremisesAsycn = (district) => {
         Promise.all(premiseses).then((res) => {
           dataCertificate.push(res);
         });
+        console.log(dataCertificate);
         const premises = address.map((element, index) => {
           let status = "Chưa cấp";
           if (dataCertificate[index]) {
@@ -61,15 +62,6 @@ const getAllPremisesAsycn = (district) => {
       });
 
       const premises = address.map((element) => {
-        let status = "abc";
-        const cer = db.Certificate.findOne({
-          where: {
-            premisesId: element.Premise.id,
-          },
-        });
-        if (cer) {
-          status = "afafa";
-        }
         return {
           id: element.Premise.id,
           name: element.Premise.name,
@@ -77,7 +69,6 @@ const getAllPremisesAsycn = (district) => {
           type: element.Premise.type,
           district: element.district,
           wards: element.wards,
-          status,
         };
       });
       resolve({
@@ -221,12 +212,12 @@ const deletePremisesAsync = (id) => {
       });
       const count2 = await db.Address.destroy({
         where: {
-          premisesId,
+          premisesId: id,
         },
       });
       const count3 = await db.Certificate.destroy({
         where: {
-          premisesId,
+          premisesId: id,
         },
       });
       if (count1 && count2 && count3) {
