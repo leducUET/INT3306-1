@@ -3,38 +3,37 @@ import axiosClient from "../../api/axiosClient";
 import { toastError, toastSuccess } from "../../helpers/toast";
 import authHeader from "../auth/services/auth-header";
 
-export const getAllModeratorsAsync = createAsyncThunk(
-  "admin/getAllModeratorsAsync",
+export const getAllStaffsAsync = createAsyncThunk(
+  "moderator/getAllStaffsAsync",
   async () => {
     try {
       const res = await axiosClient.get(
-        `users/get-users?role=moderator`,
+        `users/get-users?role=staff`,
         authHeader()
       );
       if (res.data.success) {
-        const moderators = res.data.users;
-        return { moderators };
+        const staffs = res.data.users;
+        return { staffs };
       }
     } catch (err) {
-      toastError("Có lỗi xảy ra! Không truy xuất được dữ liệu.");
       console.log(err);
     }
   }
 );
 
-export const addModeratorAsync = createAsyncThunk(
-  "admin/addModeratorAsync",
-  async (newModerator) => {
+export const addStaffAsync = createAsyncThunk(
+  "moderator/addStaffAsync",
+  async (newStaff) => {
     try {
       const res = await axiosClient.post(
-        `users/create-user?role=moderator`,
-        newModerator,
+        `users/create-user?role=staff`,
+        newStaff,
         authHeader()
       );
       if (res.data.success) {
-        const moderator = res.data.user;
+        const staff = res.data.user;
         toastSuccess("Thêm mới thành công!");
-        return { moderator };
+        return { staff };
       }
     } catch (err) {
       toastError("Có lỗi xảy ra!");
@@ -43,19 +42,18 @@ export const addModeratorAsync = createAsyncThunk(
   }
 );
 
-export const updateModeratorAsync = createAsyncThunk(
-  "admin/updateModeratorAsync",
-  async (updatedModerator) => {
+export const updateStaffAsync = createAsyncThunk(
+  "moderator/updateStaffAsync",
+  async (updatedStaff) => {
     try {
       const res = await axiosClient.put(
         "users/edit-user",
-        updatedModerator,
+        updatedStaff,
         authHeader()
       );
       if (res.data.success) {
         toastSuccess("Cập nhật thành công!");
-
-        return updatedModerator;
+        return updatedStaff;
       }
     } catch (err) {
       toastError("Có lỗi xảy ra!");
@@ -64,8 +62,8 @@ export const updateModeratorAsync = createAsyncThunk(
   }
 );
 
-export const deleteModeratorAsync = createAsyncThunk(
-  "admin/deleteModeratorAsync",
+export const deleteStaffAsync = createAsyncThunk(
+  "moderator/deleteStaffAsync",
   async (id) => {
     try {
       const res = await axiosClient.delete(
@@ -84,27 +82,29 @@ export const deleteModeratorAsync = createAsyncThunk(
   }
 );
 
-export const adminSlice = createSlice({
-  name: "admin",
+export const moderatorSlice = createSlice({
+  name: "moderator",
   initialState: [],
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(getAllModeratorsAsync.fulfilled, (state, action) => {
-        return action.payload.moderators;
+      .addCase(getAllStaffsAsync.fulfilled, (state, action) => {
+        return action.payload.staffs;
       })
-      .addCase(addModeratorAsync.fulfilled, (state, action) => {
-        state.push(action.payload.moderator);
+      .addCase(addStaffAsync.fulfilled, (state, action) => {
+        state.push(action.payload.staff);
       })
-      .addCase(addModeratorAsync.rejected, (state, action) => {
+      .addCase(addStaffAsync.rejected, (state, action) => {
         return state;
       })
-      .addCase(updateModeratorAsync.fulfilled, (state, action) => {})
-      .addCase(deleteModeratorAsync.fulfilled, (state, action) => {
-        return state.filter((moderator) => moderator.id !== action.payload);
+      .addCase(updateStaffAsync.fulfilled, (state, action) => {
+        console.log("state", state, "action", action);
+      })
+      .addCase(deleteStaffAsync.fulfilled, (state, action) => {
+        return state.filter((staff) => staff.id !== action.payload);
       });
   },
 });
 
-const { reducer } = adminSlice;
+const { reducer } = moderatorSlice;
 export default reducer;

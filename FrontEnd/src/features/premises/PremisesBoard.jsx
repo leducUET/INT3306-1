@@ -1,27 +1,25 @@
-import { Button } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
+import { Button } from "@mui/material";
 import Box from "@mui/material/Box";
 import { DataGrid } from "@mui/x-data-grid";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import "./adminBoard.scss";
-import { deleteModeratorAsync, getAllModeratorsAsync } from "./adminSlice";
-import AdminModal from "./components/AdminModal";
+import "./premisesBoard.scss";
+import PremiseModal from "./components/PremiseModal";
 
-export default function AdminBoard() {
+export default function PremisesBoard() {
   const dispatch = useDispatch();
   const initialFormInput = {
-    email: "",
-    firstName: "",
-    lastName: "",
-    gender: "",
+    name: "",
+    phoneNumber: "",
+    district: "",
     placeManagement: "All",
-    role: "moderator",
+    typeCertificate: "",
   };
 
-  useEffect(() => {
-    dispatch(getAllModeratorsAsync());
-  }, []);
+  //   useEffect(() => {
+  //     dispatch();
+  //   }, []);
 
   const moderators = useSelector((state) => state.admin);
   const [openModal, setOpenModal] = useState(false);
@@ -30,31 +28,31 @@ export default function AdminBoard() {
 
   const columns = [
     {
-      field: "email",
-      headerName: "E-mail",
+      field: "name",
+      headerName: "Tên cơ sở",
       label: "Email",
-      width: 200,
+      width: 250,
     },
     {
-      field: "firstName",
-      headerName: "Họ",
-      width: 140,
+      field: "phoneNumber",
+      headerName: "Số điện thoại",
+      type: "number",
+      width: 120,
     },
+    { field: "district", headerName: "Quận/Huyện", width: 150 },
     {
-      field: "lastName",
-      headerName: "Tên",
-      width: 140,
-    },
-    {
-      field: "gender",
-      headerName: "Giới tính",
-      type: "singleSelect",
-      valueOptions: ["Nam", "Nữ"],
+      field: "wards",
+      headerName: "Phường",
       width: 100,
     },
     {
+      field: "typeCertificate",
+      headerName: "Loại chứng nhận ATTP",
+      width: 160,
+    },
+    {
       field: "actions",
-      headerName: "Hành động",
+      headerName: "Thao tác",
       width: 350,
       cellClassName: "actions",
       renderCell: (e) => (
@@ -95,9 +93,7 @@ export default function AdminBoard() {
     setCurrentUserEdit(e.row);
     setMode("edit");
   };
-  const handleDeleteClick = (e) => {
-    dispatch(deleteModeratorAsync(e.row.id));
-  };
+  const handleDeleteClick = (e) => {};
   const handleLockClick = (e) => {
     console.log(e.row.id);
   };
@@ -106,7 +102,7 @@ export default function AdminBoard() {
   };
 
   return (
-    <div className="adminBoard">
+    <div className="staffBoard">
       {/* <div className="adminTitle">ADMIN</div> */}
       <Box
         className="usersList"
@@ -127,7 +123,7 @@ export default function AdminBoard() {
           padding: "20px",
         }}
       >
-        <AdminModal
+        <PremiseModal
           open={openModal}
           setOpen={setOpenModal}
           dataInput={currentUserEdit}
@@ -141,7 +137,7 @@ export default function AdminBoard() {
           startIcon={<AddIcon />}
           onClick={handleOnCreate}
         >
-          Thêm người điều hành
+          Tạo mới
         </Button>
         <DataGrid
           rows={moderators}

@@ -10,7 +10,7 @@
         padding: 20px;
         display: flex;
         align-items: center;
-        justify-content: space-between;
+        justify-content: right;
 
         .items {
             display: flex;
@@ -23,50 +23,12 @@
                 position: relative;
 
                 .avatar {
+                    margin-left: 10px;
                     width: 30px;
                     height: 30px;
                     border-radius: 50%;
                 }
 
-                .icon {
-                    font-size: 20px;
-                }
-
-                .counter {
-                    width: 15px;
-                    height: 15px;
-                    background-color: red;
-                    border-radius: 50%;
-                    color: white;
-
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-
-                    font-size: 10px;
-                    font-weight: bold;
-
-                    position: absolute;
-                    top: -5px;
-                    right: -5px;
-                }
-            }
-        }
-
-        .search {
-            display: flex;
-            align-items: center;
-            border: 0.5px solid lightgray;
-            padding: 3px;
-
-            input {
-                border: none;
-                outline: none;
-                background: transparent;
-
-                &:placeholder {
-                    font-size: 120px;
-                }
             }
         }
 

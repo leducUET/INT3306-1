@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { setMessage } from "./message";
 import authServices from "../services/auth.services";
+import { toast } from "react-toastify";
 
 const userLogin = JSON.parse(localStorage.getItem("userLogin"));
 
@@ -12,6 +12,15 @@ export const login = createAsyncThunk(
       const data = await authServices.login({ email, password });
       return { user: data.user };
     } catch (error) {
+      toast.error("Đăng nhập không thành công", {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
       return error;
     }
   }
@@ -34,7 +43,7 @@ const authSlice = createSlice({
     [login.fulfilled]: (state, action) => {
       if (action.payload.user) {
         state.isLoggedIn = true;
-        return { ...action.payload.user };
+        state.user = action.payload.user;
       }
     },
     // @ts-ignore

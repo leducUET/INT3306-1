@@ -1,12 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
-import authReducer from "../../features/auth/slices/auth";
-import messageReducer from "../../features/auth/slices/message";
+import authReducer from "../../features/auth/slices/authSlice";
 import adminReducer from "../../features/AdminBoard/adminSlice";
+import moderatorReducer from "../../features/Morderator/moderatorSlice";
 
 const rootReducer = {
   auth: authReducer,
-  message: messageReducer,
   admin: adminReducer,
+  moderator: moderatorReducer,
 };
 
 const store = configureStore({

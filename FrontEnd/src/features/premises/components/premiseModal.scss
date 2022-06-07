@@ -1,0 +1,31 @@
+.formContainer {
+    -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
+    box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
+    display: flex;
+    flex-flow: column wrap;
+    gap: 15px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    // transform: "translate(-50%, -50%)",
+    width: 400px;
+    background: whitesmoke;
+    padding: 20px;
+
+    .btns {
+        display: flex;
+        width: 100%;
+        gap: 15px;
+        flex-wrap: wrap;
+
+        .buttonSubmit {
+            flex: 1;
+        }
+
+        .buttonCancel {
+            flex: 1;
+        }
+    }
+
+}

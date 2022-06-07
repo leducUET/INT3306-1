@@ -1,16 +1,9 @@
-import "./home.scss";
-import { useSelector } from "react-redux";
-import { loginSelector } from "../../redux/selectors/selectors";
-import { Navigate, Outlet } from "react-router-dom";
-import Sidebar from "../../components/Sidebar/Sidebar";
+import { Outlet } from "react-router-dom";
 import Navbar from "../../components/Navbar/Navbar";
+import Sidebar from "../../components/Sidebar/Sidebar";
+import "./home.scss";
 
 const Home = () => {
-  //@ts-ignore
-  const { user: currentUser } = useSelector(loginSelector);
-  if (!currentUser) {
-    return <Navigate to="/login" />;
-  }
   return (
     <div className="home">
       <Sidebar />

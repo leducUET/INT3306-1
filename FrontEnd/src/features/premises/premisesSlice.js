@@ -3,12 +3,12 @@ import axiosClient from "../../api/axiosClient";
 import { toastError, toastSuccess } from "../../helpers/toast";
 import authHeader from "../auth/services/auth-header";
 
-export const getAllModeratorsAsync = createAsyncThunk(
+export const getAllPremisesAsync = createAsyncThunk(
   "admin/getAllModeratorsAsync",
   async () => {
     try {
       const res = await axiosClient.get(
-        `users/get-users?role=moderator`,
+        `users/get-users?role=staff`,
         authHeader()
       );
       if (res.data.success) {
@@ -16,25 +16,24 @@ export const getAllModeratorsAsync = createAsyncThunk(
         return { moderators };
       }
     } catch (err) {
-      toastError("Có lỗi xảy ra! Không truy xuất được dữ liệu.");
       console.log(err);
     }
   }
 );
 
-export const addModeratorAsync = createAsyncThunk(
-  "admin/addModeratorAsync",
-  async (newModerator) => {
+export const addPremisesAsync = createAsyncThunk(
+  "premises/addPremiseAsync",
+  async (newPremise) => {
     try {
       const res = await axiosClient.post(
-        `users/create-user?role=moderator`,
-        newModerator,
+        `premises/create-premises?role=staff`,
+        newPremise,
         authHeader()
       );
       if (res.data.success) {
-        const moderator = res.data.user;
+        const premises = res.data.premises;
         toastSuccess("Thêm mới thành công!");
-        return { moderator };
+        return { premises };
       }
     } catch (err) {
       toastError("Có lỗi xảy ra!");
@@ -54,7 +53,6 @@ export const updateModeratorAsync = createAsyncThunk(
       );
       if (res.data.success) {
         toastSuccess("Cập nhật thành công!");
-
         return updatedModerator;
       }
     } catch (err) {
@@ -84,10 +82,13 @@ export const deleteModeratorAsync = createAsyncThunk(
   }
 );
 
-export const adminSlice = createSlice({
+export const staffSlice = createSlice({
   name: "admin",
   initialState: [],
-  reducers: {},
+  reducers: {
+    addModerator: (state, action) => {},
+    deleteModerator: (state, action) => {},
+  },
   extraReducers: (builder) => {
     builder
       .addCase(getAllModeratorsAsync.fulfilled, (state, action) => {
@@ -99,12 +100,14 @@ export const adminSlice = createSlice({
       .addCase(addModeratorAsync.rejected, (state, action) => {
         return state;
       })
-      .addCase(updateModeratorAsync.fulfilled, (state, action) => {})
+      .addCase(updateModeratorAsync.fulfilled, (state, action) => {
+        console.log("state", state, "action", action);
+      })
       .addCase(deleteModeratorAsync.fulfilled, (state, action) => {
         return state.filter((moderator) => moderator.id !== action.payload);
       });
   },
 });
 
-const { reducer } = adminSlice;
-export default reducer;
+export const { addModerator } = staffSlice.actions;
+export default staffSlice.reducer;
