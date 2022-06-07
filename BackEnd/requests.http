@@ -74,7 +74,7 @@ Content-Type: application/json
 {
     "name":  "Nhà hàng quốc tế",
     "phoneNumber": "0361234567",
-    "type": "production", 
+    "type": "Sản xuất thực phẩm", 
     "wards": "Lê Trường",
     "district": "Quan Hóa"
 }

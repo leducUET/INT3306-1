@@ -93,7 +93,14 @@ const createPremieseAsync = (name, phoneNumber, type, wards, district) => {
             resolve({
               success: true,
               message: `Premises created successfully.`,
-              premises,
+              premises: {
+                id: premises.id,
+                name: premises.name,
+                phoneNumber: premises.phoneNumber,
+                type: premises.type,
+                district: district,
+                wards: wards,
+              },
             });
           }
         } else {
