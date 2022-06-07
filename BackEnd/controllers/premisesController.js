@@ -12,11 +12,11 @@ const {
 const getAllPremises = async (req, res) => {
   const { district } = req.query;
 
-  const premises = await getAllPremisesAsycn(district);
+  const data = await getAllPremisesAsycn(district);
   res.status(200).json({
     success: true,
     message: `All premises in ${district}`,
-    premises: premises.premises,
+    premises: data.premises,
   });
 };
 

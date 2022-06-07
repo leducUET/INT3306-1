@@ -20,15 +20,19 @@ const getAllPremisesAsycn = (district) => {
           include: [{ model: db.Premises }],
           nest: true,
         });
-        const premises = address.map(async (element) => {
-          const certificate = await db.Certificate.findOne({
-            where: {
-              premisesId: element.Premise.id,
-            },
+        const premiseses = address.map(async (element) => {
+          return await db.Certificate.findOne({
+            where: { premisesId: element.Premise.id },
           });
+        });
+        const dataCertificate = [];
+        Promise.all(premiseses).then((res) => {
+          dataCertificate.push(res);
+        });
+        const premises = address.map((element, index) => {
           let status = "Chưa cấp";
-          if (certificate) {
-            if (certificate.revoked) {
+          if (dataCertificate[index]) {
+            if (dataCertificate.revoked) {
               status = "Đã thu hồi";
             } else {
               status = "Còn hiệu lực";
@@ -56,19 +60,15 @@ const getAllPremisesAsycn = (district) => {
         nest: true,
       });
 
-      const premises = address.map(async (element) => {
-        const certificate = await db.Certificate.findOne({
+      const premises = address.map((element) => {
+        let status = "abc";
+        const cer = db.Certificate.findOne({
           where: {
             premisesId: element.Premise.id,
           },
         });
-        let status = "Chưa cấp";
-        if (certificate) {
-          if (certificate.revoked) {
-            status = "Đã thu hồi";
-          } else {
-            status = "Còn hiệu lực";
-          }
+        if (cer) {
+          status = "afafa";
         }
         return {
           id: element.Premise.id,
@@ -128,7 +128,6 @@ const createPremieseAsync = (name, phoneNumber, type, wards, district) => {
                 type: premises.type,
                 district: district,
                 wards: wards,
-                status: "Chưa cấp",
               },
             });
           }
