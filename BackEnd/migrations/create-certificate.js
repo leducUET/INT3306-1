@@ -9,12 +9,12 @@ module.exports = {
         type: Sequelize.INTEGER,
       },
       code: {
-        type: Sequelize.STRING,
+        type: Sequelize.DATE,
         allowNull: false,
       },
       issueDate: {
         allowNull: false,
-        type: Sequelize.STRING,
+        type: Sequelize.DATE,
       },
       expirationDate: {
         type: Sequelize.STRING,

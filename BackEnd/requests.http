@@ -61,13 +61,13 @@ Content-Type: application/json
 {
     "name":  "Nhà hàng quốc tế",
     "phoneNumber": "0361234567",
-    "type": "production", 
+    "type": "Sản xuất thực phẩm", 
     "wards": "Lê Trường",
     "district": "Quan Hóa"
 }
 
 ###
-POST http://localhost:8000/api/inspeaction/create-inspection HTTP/1.1
+PUT http://localhost:8000/api/premises/edit-premises HTTP/1.1
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjU0NDE4MjE5LCJleHAiOjE2NTcwMTAyMTl9.zbay5H0dJECuoRVcxi-Mo5EdxmyCpNQpWGUZai3tbX0
 Content-Type: application/json
 
@@ -76,5 +76,5 @@ Content-Type: application/json
     "phoneNumber": "0361234567",
     "type": "Sản xuất thực phẩm", 
     "wards": "Lê Trường",
-    "district": "Quan Hóa"
+    "district": "Ba Thuoc"
 }

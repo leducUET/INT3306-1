@@ -20,7 +20,20 @@ const getAllPremisesAsycn = (district) => {
           include: [{ model: db.Premises }],
           nest: true,
         });
-        const premises = address.map((element) => {
+        const premises = address.map(async (element) => {
+          const certificate = await db.Certificate.findOne({
+            where: {
+              premisesId: element.Premise.id,
+            },
+          });
+          let status = "Chưa cấp";
+          if (certificate) {
+            if (certificate.revoked) {
+              status = "Đã thu hồi";
+            } else {
+              status = "Còn hiệu lực";
+            }
+          }
           return {
             id: element.Premise.id,
             name: element.Premise.name,
@@ -28,6 +41,7 @@ const getAllPremisesAsycn = (district) => {
             type: element.Premise.type,
             district: element.district,
             wards: element.wards,
+            status,
           };
         });
         resolve({
@@ -42,7 +56,20 @@ const getAllPremisesAsycn = (district) => {
         nest: true,
       });
 
-      const premises = address.map((element) => {
+      const premises = address.map(async (element) => {
+        const certificate = await db.Certificate.findOne({
+          where: {
+            premisesId: element.Premise.id,
+          },
+        });
+        let status = "Chưa cấp";
+        if (certificate) {
+          if (certificate.revoked) {
+            status = "Đã thu hồi";
+          } else {
+            status = "Còn hiệu lực";
+          }
+        }
         return {
           id: element.Premise.id,
           name: element.Premise.name,
@@ -50,6 +77,7 @@ const getAllPremisesAsycn = (district) => {
           type: element.Premise.type,
           district: element.district,
           wards: element.wards,
+          status,
         };
       });
       resolve({
@@ -100,6 +128,7 @@ const createPremieseAsync = (name, phoneNumber, type, wards, district) => {
                 type: premises.type,
                 district: district,
                 wards: wards,
+                status: "Chưa cấp",
               },
             });
           }

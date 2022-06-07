@@ -14,8 +14,8 @@ module.exports = (sequelize, DataTypes) => {
   Certificate.init(
     {
       code: DataTypes.STRING,
-      issueDate: DataTypes.STRING,
-      expirationDate: DataTypes.STRING,
+      issueDate: DataTypes.DATE,
+      expirationDate: DataTypes.DATE,
       revoked: DataTypes.BOOLEAN,
       image: DataTypes.BLOB,
       premisesId: DataTypes.INTEGER,
