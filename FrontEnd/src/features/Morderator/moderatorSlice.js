@@ -52,8 +52,12 @@ export const updateStaffAsync = createAsyncThunk(
         authHeader()
       );
       if (res.data.success) {
-        toastSuccess("Cập nhật thành công!");
-        return updatedStaff;
+        toastSuccess(
+          `${
+            updatedStaff.editPassword ? "Đặt lại mật khẩu" : "Cập nhật"
+          } thành công!`
+        );
+        return res.data.user;
       }
     } catch (err) {
       toastError("Có lỗi xảy ra!");

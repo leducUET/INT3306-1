@@ -46,6 +46,7 @@ export const addModeratorAsync = createAsyncThunk(
 export const updateModeratorAsync = createAsyncThunk(
   "admin/updateModeratorAsync",
   async (updatedModerator) => {
+    console.log(updatedModerator);
     try {
       const res = await axiosClient.put(
         "users/edit-user",
@@ -53,9 +54,12 @@ export const updateModeratorAsync = createAsyncThunk(
         authHeader()
       );
       if (res.data.success) {
-        toastSuccess("Cập nhật thành công!");
-
-        return updatedModerator;
+        toastSuccess(
+          `${
+            updatedModerator.editPassword ? "Đặt lại mật khẩu" : "Cập nhật"
+          } thành công!`
+        );
+        return res.data.user;
       }
     } catch (err) {
       toastError("Có lỗi xảy ra!");
@@ -99,7 +103,14 @@ export const adminSlice = createSlice({
       .addCase(addModeratorAsync.rejected, (state, action) => {
         return state;
       })
-      .addCase(updateModeratorAsync.fulfilled, (state, action) => {})
+      .addCase(updateModeratorAsync.fulfilled, (state, action) => {
+        return state.map((moderator) => {
+          if (moderator.id === action.payload.id) {
+            return action.payload;
+          }
+          return moderator;
+        });
+      })
       .addCase(deleteModeratorAsync.fulfilled, (state, action) => {
         return state.filter((moderator) => moderator.id !== action.payload);
       });

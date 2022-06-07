@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ModeratorModal from "./components/ModeratorModal";
 import "./moderatorBoard.scss";
-import { getAllStaffsAsync } from "./moderatorSlice";
+import { getAllStaffsAsync, updateStaffAsync } from "./moderatorSlice";
 
 export default function ModeratorBoard() {
   const dispatch = useDispatch();
@@ -101,7 +101,7 @@ export default function ModeratorBoard() {
     console.log(e.row.id);
   };
   const handleResetClick = (e) => {
-    console.log(e.row.id);
+    dispatch(updateStaffAsync({ ...e.row, editPassword: true }));
   };
 
   return (

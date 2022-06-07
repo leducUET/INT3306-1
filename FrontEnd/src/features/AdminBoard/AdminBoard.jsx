@@ -5,7 +5,11 @@ import { DataGrid } from "@mui/x-data-grid";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "./adminBoard.scss";
-import { deleteModeratorAsync, getAllModeratorsAsync } from "./adminSlice";
+import {
+  deleteModeratorAsync,
+  getAllModeratorsAsync,
+  updateModeratorAsync,
+} from "./adminSlice";
 import AdminModal from "./components/AdminModal";
 
 export default function AdminBoard() {
@@ -102,7 +106,7 @@ export default function AdminBoard() {
     console.log(e.row.id);
   };
   const handleResetClick = (e) => {
-    console.log(e.row.id);
+    dispatch(updateModeratorAsync({ ...e.row, editPassword: true }));
   };
 
   return (

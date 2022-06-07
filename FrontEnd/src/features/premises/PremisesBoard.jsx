@@ -2,26 +2,27 @@ import AddIcon from "@mui/icons-material/Add";
 import { Button } from "@mui/material";
 import Box from "@mui/material/Box";
 import { DataGrid } from "@mui/x-data-grid";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "./premisesBoard.scss";
 import PremiseModal from "./components/PremiseModal";
+import { getAllPremisesAsync } from "./premisesSlice";
 
 export default function PremisesBoard() {
   const dispatch = useDispatch();
   const initialFormInput = {
     name: "",
     phoneNumber: "",
+    type: "",
     district: "",
-    placeManagement: "All",
-    typeCertificate: "",
+    wards: "",
   };
 
-  //   useEffect(() => {
-  //     dispatch();
-  //   }, []);
+  useEffect(() => {
+    dispatch(getAllPremisesAsync());
+  }, []);
 
-  const moderators = useSelector((state) => state.admin);
+  const premises = useSelector((state) => state.premises);
   const [openModal, setOpenModal] = useState(false);
   const [currentUserEdit, setCurrentUserEdit] = useState(initialFormInput);
   const [mode, setMode] = useState("");
@@ -140,7 +141,7 @@ export default function PremisesBoard() {
           Tạo mới
         </Button>
         <DataGrid
-          rows={moderators}
+          rows={premises}
           columns={columns}
           rowsPerPageOptions={[5, 10, 25, 50, 100, 250, 500]}
         />

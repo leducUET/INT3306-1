@@ -5,14 +5,13 @@ import {
   InputLabel,
   MenuItem,
   Modal,
-  OutlinedInput,
   Select,
   TextField,
 } from "@mui/material";
 import React from "react";
 import { useDispatch } from "react-redux";
 import { addStaffAsync, updateStaffAsync } from "../moderatorSlice";
-import { provinceData } from "../provinceData";
+import { HNdistrictData } from "../provinceData";
 import "./moderatorModal.scss";
 
 const ModeratorModal = ({ open, setOpen, dataInput, setDataInput, mode }) => {
@@ -29,7 +28,7 @@ const ModeratorModal = ({ open, setOpen, dataInput, setDataInput, mode }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (mode === "edit") {
-      dispatch(updateStaffAsync(dataInput));
+      dispatch(updateStaffAsync({ ...dataInput, editPassword: false }));
     } else if (mode === "create") {
       dispatch(addStaffAsync(dataInput));
     }
@@ -107,9 +106,12 @@ const ModeratorModal = ({ open, setOpen, dataInput, setDataInput, mode }) => {
             <MenuItem disabled value="">
               <em>Vùng quản lý</em>
             </MenuItem>
-            {provinceData.map((province) => (
-              <MenuItem key={province.provinceID} value={province.provinceName}>
-                {province.provinceName}
+            {HNdistrictData.map((district) => (
+              <MenuItem
+                key={district.district_id}
+                value={district.district_name}
+              >
+                {district.district_name}
               </MenuItem>
             ))}
           </Select>
