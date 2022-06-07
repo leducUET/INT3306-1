@@ -214,12 +214,22 @@ const editPremisesAsync = (name, phoneNumber, type, wards, district) => {
 const deletePremisesAsync = (id) => {
   return new Promise(async (resolve, reject) => {
     try {
-      const count = await db.Premises.destroy({
+      const count1 = await db.Premises.destroy({
         where: {
           id,
         },
       });
-      if (count) {
+      const count2 = await db.Address.destroy({
+        where: {
+          premisesId,
+        },
+      });
+      const count3 = await db.Certificate.destroy({
+        where: {
+          premisesId,
+        },
+      });
+      if (count1 && count2 && count3) {
         resolve({
           success: true,
           message: "Premises deleted successfully.",
