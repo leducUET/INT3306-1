@@ -127,6 +127,7 @@ const editUserAsync = (
           where: {
             email,
           },
+          attributes: { exclude: ["password"] },
         });
         if (count) {
           resolve({
@@ -158,6 +159,7 @@ const editUserAsync = (
           where: {
             email,
           },
+          attributes: { exclude: ["password"] },
         });
         if (count) {
           resolve({

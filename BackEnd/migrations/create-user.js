@@ -30,7 +30,7 @@ module.exports = {
         allowNull: false,
       },
       gender: {
-        type: Sequelize.BOOLEAN,
+        type: Sequelize.STRING,
         allowNull: false,
       },
       avatar: {
