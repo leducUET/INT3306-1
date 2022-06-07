@@ -21,7 +21,14 @@ const getAllPremisesAsycn = (district) => {
           nest: true,
         });
         const premises = address.map((element) => {
-          return element.Premise;
+          return {
+            id: element.Premise.id,
+            name: element.Premise.name,
+            phoneNumber: element.Premise.phoneNumber,
+            type: element.Premise.type,
+            district: element.district,
+            wards: element.wards,
+          };
         });
         resolve({
           premises,
@@ -34,8 +41,16 @@ const getAllPremisesAsycn = (district) => {
         include: [{ model: db.Premises }],
         nest: true,
       });
+
       const premises = address.map((element) => {
-        return element.Premise;
+        return {
+          id: element.Premise.id,
+          name: element.Premise.name,
+          phoneNumber: element.Premise.phoneNumber,
+          type: element.Premise.type,
+          district: element.district,
+          wards: element.wards,
+        };
       });
       resolve({
         premises,
@@ -49,7 +64,7 @@ const getAllPremisesAsycn = (district) => {
 const createPremieseAsync = (name, phoneNumber, type, wards, district) => {
   return new Promise(async (resolve, reject) => {
     try {
-      let types = ["production", "service"];
+      let types = ["Sản xuất thực phẩm", "Dịch vụ ăn uống"];
       if (!types.includes(type)) {
         resolve({
           success: false,
