@@ -1,21 +1,23 @@
-import "./sidebar.scss";
+import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import DashboardIcon from "@mui/icons-material/Dashboard";
-import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
-import StoreIcon from "@mui/icons-material/Store";
+import ExitToAppOutlinedIcon from "@mui/icons-material/ExitToAppOutlined";
 import InsertChartIcon from "@mui/icons-material/InsertChart";
 import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
+import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import PsychologyOutlinedIcon from "@mui/icons-material/PsychologyOutlined";
 import SettingsApplicationsIcon from "@mui/icons-material/SettingsApplications";
-import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
-import ExitToAppOutlinedIcon from "@mui/icons-material/ExitToAppOutlined";
-import { Link, Navigate } from "react-router-dom";
+import StoreIcon from "@mui/icons-material/Store";
 import { useDispatch, useSelector } from "react-redux";
-import { logout } from "../../features/auth/slices/auth";
+import { Link, Navigate, useNavigate } from "react-router-dom";
+import { logout } from "../../features/auth/slices/authSlice";
+import "./sidebar.scss";
 
 const Sidebar = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const handleLogout = () => {
     dispatch(logout());
+    navigate("login");
   };
   const currentUser = useSelector((state) => state.auth.user);
   return (
@@ -30,73 +32,69 @@ const Sidebar = () => {
         <ul>
           {currentUser.role === "admin" && (
             <>
-              <p className="title">MAIN</p>
+              <p className="title">DANH SÁCH</p>
               <Link className="link" to="admin">
                 <li>
                   <DashboardIcon className="icon" />
-                  <span>AdminBoard</span>
+                  <span>Người điều hành</span>
                 </li>
               </Link>
             </>
           )}
           {(currentUser.role === "moderator" ||
-            currentUser.role === "staff") && <p className="title">Lists</p>}
+            currentUser.role === "staff") && <p className="title">DANH SÁCH</p>}
           {currentUser.role === "moderator" && (
-            <Link className="link" to="users">
+            <Link className="link" to="moderator">
               <li>
                 <PersonOutlineIcon className="icon" />
-                <span>Users</span>
+                <span>Chuyên viên</span>
               </li>
             </Link>
           )}
           {(currentUser.role === "moderator" ||
             currentUser.role === "staff") && (
             <>
-              <Link className="link" to="bases">
+              <Link className="link" to="premises">
                 <li>
                   <StoreIcon className="icon" />
-                  <span>Bases</span>
+                  <span>Cơ sở</span>
                 </li>
               </Link>
-              <p className="title">USEFUL</p>
+              <p className="title">TIỆN ÍCH</p>
               <li>
                 <InsertChartIcon className="icon" />
-                <span>Stats</span>
+                <span>Thanh Tra</span>
               </li>
               <li>
                 <NotificationsNoneIcon className="icon" />
-                <span>Notifications</span>
+                <span>Thông báo</span>
               </li>
-              <p className="title">SERVICES</p>
+              <p className="title">DỊCH VỤ</p>
               <Link className="link" to="logs">
                 <li>
                   <PsychologyOutlinedIcon className="icon" />
-                  <span>Logs</span>
+                  <span>Bản ghi</span>
                 </li>
               </Link>
               <li>
                 <SettingsApplicationsIcon className="icon" />
-                <span>Settings</span>
+                <span>Cài Đặt</span>
               </li>
             </>
           )}
 
-          <p className="title">USER</p>
+          <p className="title">CÁ NHÂN</p>
           <Link className="link" to="profile">
             <li>
               <AccountCircleOutlinedIcon className="icon" />
-              <span>Profile</span>
+              <span>Hồ sơ</span>
             </li>
           </Link>
           <li onClick={handleLogout}>
             <ExitToAppOutlinedIcon className="icon" />
-            <span>Logout</span>
+            <span>Đăng xuất</span>
           </li>
         </ul>
-      </div>
-      <div className="bottom">
-        <div className="colorOption"></div>
-        <div className="colorOption"></div>
       </div>
     </div>
   );

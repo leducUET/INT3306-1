@@ -1,20 +1,19 @@
-import "./login.scss";
-import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { loginSelector } from "../../../redux/selectors/selectors";
-import { login } from "../slices/auth";
 import { Navigate } from "react-router-dom";
-import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { authSelector } from "../../../redux/selectors/selectors";
+import { login } from "../slices/authSlice";
+import "./login.scss";
 
 const Login = () => {
   const dispatch = useDispatch();
   const initialState = { email: "", password: "" };
 
   const [formData, setFormData] = useState(initialState);
-  const { isLoggedIn, user } = useSelector(loginSelector);
+  const { isLoggedIn, user } = useSelector(authSelector);
 
   const handleOnChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -28,22 +27,14 @@ const Login = () => {
     dispatch(login({ email, password }));
   };
 
-  if (isLoggedIn) {
+  if (isLoggedIn && user.token) {
     if (user.role === "admin") {
       return <Navigate to="/admin" />;
+    } else if (user.role === "moderator") {
+      return <Navigate to="/moderator" />;
     } else {
-      return <Navigate to="/" />;
+      return <Navigate to="/premises" />;
     }
-  } else {
-    toast.error("🦄 Wow so easy!", {
-      position: "top-right",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    });
   }
 
   return (
