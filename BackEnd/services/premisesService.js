@@ -128,6 +128,7 @@ const createPremieseAsync = (name, phoneNumber, type, wards, district) => {
                 type: premises.type,
                 district: district,
                 wards: wards,
+                status: "Chưa cấp",
               },
             });
           }
